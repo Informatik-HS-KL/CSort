@@ -1,0 +1,14 @@
+body {
+  font-weight: 200;
+  background-color: #04BBEE;
+}
+
+header a,
+footer a {
+  color: white;
+}
+
+footer {
+  font-size: 0.5em;
+}
+
