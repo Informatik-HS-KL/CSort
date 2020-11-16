@@ -21,16 +21,16 @@ class App extends Component {
 
     return (
       <GridLayout className="layout" layout={layout} cols={12} rowHeight={window.innerHeight / 18} width={window.innerWidth} margin={[0,0]}>
-          <div key="a" style={{backgroundColor: "black"}}>
+          <div key="a" style={{backgroundColor: "#ECECEC"}}> {/* Neue Überschrift/Karte Block */}
             <AddCard />
           </div>  
-          <div key="b" style={{backgroundColor: "blue"}}>
+          <div key="b" style={{backgroundColor: "#ECECEC"}}> {/* Noch nicht platzierte Karten Block */}
             <CardList />
           </div> 
-          <div key="c" style={{backgroundColor: "green"}}>
+          <div key="c" style={{backgroundColor: "#565656"}}> {/* Board */}
             <Board />
           </div>
-          <div key="d" style={{backgroundColor: "red"}}>
+          <div key="d" style={{backgroundColor: "#c4c4c4"}}> {/* Legende  */}
             <Legend />
           </div>
       </GridLayout>

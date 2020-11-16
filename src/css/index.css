@@ -1,12 +1,23 @@
 body {
   font-weight: 200;
-  background-color: #04BBEE;
+  background-color: #C4C4C4;
 }
 
-header a,
-footer a {
-  color: white;
+header a{
+  color: #282828;
+  /*box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);*/
 }
+
+.ueberschrift{
+  text-align: center;
+  margin: auto;
+  padding: 10px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #282828;
+}
+
+
+
 
 footer {
   font-size: 0.5em;

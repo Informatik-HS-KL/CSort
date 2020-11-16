@@ -9,7 +9,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #282828;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -33,7 +33,7 @@
 }
 
 .layout{
-  color: lightcoral;
+  color: #282828;
   background-color: darkslategrey;
 }
 
