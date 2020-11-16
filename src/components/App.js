@@ -9,8 +9,14 @@ import Legend from './Legend';
 class App extends Component {
   constructor () {
     super();    
+    this.state = {
+      cards: []
+    }
+    this.createCard = this.createCard.bind(this)
   }
-
+  createCard(text){
+    this.setState(prevState => ({cards: [...prevState.cards, text]}))
+  }
   render(){ 
     const layout = [
       { i: 'a', x: 0, y: 0, w: 3, h: 6, static: true },
@@ -22,10 +28,11 @@ class App extends Component {
     return (
       <GridLayout className="layout" layout={layout} cols={12} rowHeight={window.innerHeight / 18} width={window.innerWidth} margin={[0,0]}>
           <div key="a" style={{backgroundColor: "black"}}>
-            <AddCard />
+            <AddCard createCard= {this.createCard}/>
           </div>  
           <div key="b" style={{backgroundColor: "blue"}}>
-            <CardList />
+            <CardList cardList = {this.state.cards}
+             />
           </div> 
           <div key="c" style={{backgroundColor: "green"}}>
             <Board />

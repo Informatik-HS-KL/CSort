@@ -1,3 +1,14 @@
+# Installation
+
+git installieren
+node.js installieren
+
+Kommandozeilenbefehle:
+npm install
+npm install bootstrap react-icons lodash jquery popper.js moment react-moment --dev
+npm install @material-ui/core
+npm install react-modal
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

@@ -2,7 +2,10 @@ import React, {Component} from 'react';
 
 class CardList extends Component {
     render() {
-        return <div>Noch nicht platzierte Karten</div>
+        const listItems = this.props.cardList.map(item =>(
+            <div>{item}</div>
+        ))
+        return <div>{listItems}</div>
     }
 }
 
