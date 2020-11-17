@@ -16,7 +16,7 @@ class Legend extends Component {
             right: 5px;
             top: 5px`
         ;          
-        
+
         return ( 
             <div>
                 Legende
