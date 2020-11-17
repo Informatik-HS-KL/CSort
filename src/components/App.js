@@ -20,13 +20,15 @@ class App extends Component {
   render(){ 
     const layout = [
       { i: 'a', x: 0, y: 0, w: 3, h: 6, static: true },
-      { i: 'b', x: 0, y: 6, w: 3, h: 9, static: true },
-      { i: 'c', x: 3, y: 0, w: 9, h: 14, static: true },
-      { i: 'd', x: 3, y: 14, w: 9, h: 1, static: true }
+      { i: 'b', x: 0, y: 6, w: 3, h: 12, static: true },
+      { i: 'c', x: 3, y: 0, w: 9, h: 17, static: true },
+      { i: 'd', x: 3, y: 17, w: 9, h: 1, static: true }
      ];
 
+     var headerHeight = document.getElementById("header").offsetHeight;
+
     return (
-      <GridLayout className="layout" layout={layout} cols={12} rowHeight={window.innerHeight / 18} width={window.innerWidth} margin={[0,0]}>
+      <GridLayout className="layout" layout={layout} cols={12} rowHeight={(window.innerHeight - headerHeight) / 18} width={window.innerWidth} margin={[0,0]}>
           <div key="a" style={{backgroundColor: "#ECECEC"}}> {/* Neue Überschrift/Karte Block */}
             <AddCard createCard= {this.createCard}/>
           </div>  

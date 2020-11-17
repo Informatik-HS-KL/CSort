@@ -14,7 +14,7 @@ class Legend extends Component {
             color: black;
             position: absolute;
             right: 5px;
-            top: 5px`
+            top: 3px`
         ;          
         
         return ( 
