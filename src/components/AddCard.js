@@ -46,7 +46,9 @@ class AddCard extends Component {
                 <br/>
                 <button onClick = {()=> this.setState({modalOpen: false, text: ""})}> Abbrechen 
                 </button>
-                <button onClick = {()=> {this.setState({modalOpen: false}), this.props.createCard(this.state.text)}}> Fertig 
+                <button onClick = {()=> (
+                    this.setState({modalOpen: false}), 
+                    this.props.createCard(this.state.text))}> Fertig 
                 </button>
             </Modal>
         </div>

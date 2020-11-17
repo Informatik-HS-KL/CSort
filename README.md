@@ -4,10 +4,15 @@ git installieren
 node.js installieren
 
 Kommandozeilenbefehle:
+
 npm install
+
 npm install bootstrap react-icons lodash jquery popper.js moment react-moment --dev
+
 npm install @material-ui/core
+
 npm install react-modal
+
 
 # Getting Started with Create React App
 
