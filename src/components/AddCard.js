@@ -23,10 +23,10 @@ class AddCard extends Component {
                     textAlign: 'center',
                 },
                 content: { 
-                    top: '300px',
-                    left: '750px',
-                    right: '750px',
-                    bottom: '300px'}
+                    top: '30px',
+                    left: '75px',
+                    right: '75px',
+                    bottom: '30px'}
                 }
                 }>
                 <h2>Karte erstellen
