@@ -44,6 +44,7 @@ class AddCard extends Component {
                 </textarea> 	
                 <br/>
                 <br/>
+                
                 <button onClick = {()=> this.setState({modalOpen: false, text: ""})}> Abbrechen 
                 </button>
                 <button onClick = {()=> (
