@@ -28,7 +28,7 @@ class App extends Component {
     return (
       <GridLayout className="layout" layout={layout} cols={12} rowHeight={window.innerHeight / 18} width={window.innerWidth} margin={[0,0]}>
           <div key="a" style={{backgroundColor: "#ECECEC"}}> {/* Neue Überschrift/Karte Block */}
-            <AddCard createCard= {this.createCard}/>
+            <AddCard createCard= {this.createCard} />
           </div>  
           <div key="b" style={{backgroundColor: "#ECECEC"}}> {/* Noch nicht platzierte Karten Block */}
             <CardList cardList = {this.state.cards}/>
