@@ -16,6 +16,7 @@
     "popper.js": "^1.16.1",
     "poppers.js": "^1.16.1",
     "react": "^17.0.1",
+    "react-color": "^2.19.3",
     "react-dom": "^17.0.1",
     "react-grid": "^4.0.4",
     "react-grid-layout": "^1.1.1",
