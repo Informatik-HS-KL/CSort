@@ -22,7 +22,7 @@ class App extends Component {
       { i: 'a', x: 0, y: 0, w: 3, h: 6, static: true },
       { i: 'b', x: 0, y: 6, w: 3, h: 9, static: true },
       { i: 'c', x: 3, y: 0, w: 9, h: 14, static: true },
-      { i: 'd', x: 3, y: 14, w: 9, h: 1, static: true }
+      { i: 'd', x: 3, y: 14, w: 9, h: 1, static: true },
      ];
 
     return (
