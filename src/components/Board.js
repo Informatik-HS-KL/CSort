@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import { error } from 'jquery';
 
 /*Button zum hochladen eines Bildes als Boardhintergrund */
 
@@ -23,6 +22,7 @@ class DisplayImage extends Component {
         });
         const data = new FormData();
         data.append('username', 'test');
+        data.append('filetype', 'background');
         data.append('file', event.target.files[0]);
         axios.post("http://localhost:8000/upload_background", data, { // receive two parameter endpoint url ,form data 
             })
@@ -35,7 +35,7 @@ class DisplayImage extends Component {
     render() {
       return (
             <div>
-              <img src= {this.state.image} />
+            <img src= "CSort/test/background.png" />
               <label for="ImageUpload" class="ImageInput"></label>
               <input id="ImageUpload" type="file" name="myImage" onChange={this.onImageChange} />
             </div>

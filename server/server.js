@@ -1,5 +1,8 @@
+//empfängt Dateien in formdata format, filetype gibt den Namen der Datei an und username den Ordner in public
+//server starten: npx nodemon server/server.js
 var express = require('express');
 var app = express();
+//Multer is a node.js middleware for handling multipart/form-data, which is primarily used for uploading files
 var multer = require('multer');
 var cors = require('cors');
 
@@ -12,11 +15,16 @@ var storage = multer.diskStorage({
   cb(null, 'public/' + req.body.username + '/');
 },
 filename: function (req, file, cb) {
-  cb(null, 'background'+ path.extname(file.originalname))
+  cb(null, req.body.filetype + path.extname(file.originalname))
 }
 });
 
 var upload = multer({ storage: storage }).single('file');
+
+app.get('/download_background', function(req, res){
+  const path = ('public/' + req.params.username + '/' + req.params.filetype + '.png');
+  res.sendFile(path);
+});
 
 app.post('/upload_background',function(req, res) {
      
