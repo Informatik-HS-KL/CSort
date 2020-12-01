@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Button from '@material-ui/core/Button';
 import Modal from 'react-modal'
-import Radio from '@material-ui/core/Radio';
+import  '../css/AddCard.css';
 
 
 Modal.setAppElement('#root')
@@ -11,40 +11,39 @@ class AddCard extends Component {
         this.state = {
              modalOpen: false,
              text: "",
-             radioValue:"red",
-
+             radioValue: "white",
         }
         this.handleRadio = this.handleRadio.bind(this)
-
     }
+
     handleRadio = (event) => {
-        this.setState({radioValue: event.target.value});
+        this.setState({radioValue: event.target.className.split(' ')[1]});
       }
         
-
-
     render() {
         return <div>
-            <Button 
+          <Button 
                 variant="contained" 
                 onClick={()=> this.setState({modalOpen: true})}
-                style = {{   width: '46%', height:'200px', textAlign:'center', margin:'20%'}}
-                > Karte erstellen
+                style = {{width: '40%', height:'180px', textAlign:'center', margin:'10% 25% 10% 25%'}}
+            > Karte erstellen
             </Button>
+           
             <Modal 
                 isOpen = {this.state.modalOpen} 
                 onRequestClose = {()=>this.setState({modalOpen: false})}
                 style = {{
-                    overlay: {backgroundColor: 'rgba(0, 0, 0, 0.5)',
-                    textAlign: 'center'
+                    overlay: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                        textAlign: 'center'
                     },
                     content : {
-                        top                   : '50%',
-                        left                  : '50%',
-                        right                 : 'auto',
-                        bottom                : 'auto',
-                        marginRight           : '-50%',
-                        transform             : 'translate(-50%, -50%)'
+                        top: '50%',
+                        left: '50%',
+                        right: 'auto',
+                        bottom: 'auto',
+                        marginRight: '-50%',
+                        transform: 'translate(-50%, -50%)'
                       }
 
                 }}>
@@ -62,18 +61,12 @@ class AddCard extends Component {
                 </textarea> 	
                 <br/>
                 <div>
-                <Radio
-                    value='red'
-                    checked = {this.state.radioValue==="red"}
-                    onChange = {this.handleRadio}
-                    
-                />
-                <Radio
-                    value='blue'
-                    checked = {this.state.radioValue==="blue"}
-                    color = 'primary'
-                    onChange = {this.handleRadio}
-                />
+                    <span onClick={(e)=>this.handleRadio(e)} className ={'dot dot-green'}></span>
+                    <span onClick={(e)=>this.handleRadio(e)} className ={'dot dot-yellow'}></span>
+                    <span onClick={(e)=>this.handleRadio(e)} className ={'dot dot-red'}></span>
+                    <span onClick={(e)=>this.handleRadio(e)} className ={'dot dot-purple'}></span>
+                    <span onClick={(e)=>this.handleRadio(e)} className ={'dot dot-blue'}></span>
+                    <span onClick={(e)=>this.handleRadio(e)} className ={'dot dot-lightblue'}></span>
                 </div>
                 <br/>
                 <Button 
@@ -85,7 +78,7 @@ class AddCard extends Component {
                 {/*eslint-disable */}
                 <Button onClick = {()=> (
                     this.setState({modalOpen: false, text: ""}),
-                    this.state.text!=''?this.props.createCard(this.state.text):null)
+                    this.state.text!=''?this.props.createCard(this.state.text, this.state.radioValue):null)
                     }
                     variant="contained" 
                     style = {{margin:'15px'}}

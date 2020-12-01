@@ -10,12 +10,26 @@ class App extends Component {
   constructor () {
     super();    
     this.state = {
-      cards: []
+      cards: [
+        {
+        id: 0,
+        text: "",
+        color: "",
+      }
+    ]
     }
     this.createCard = this.createCard.bind(this)
   }
-  createCard(text){
-    this.setState(prevState => ({cards: [...prevState.cards, text]}))
+  createCard(text, color){
+    this.setState(prevState => ({
+      cards: [...prevState.cards,
+      {
+      id: 1,
+      text: text,
+      color: color
+      }
+    ]
+    }))
   }
   render(){ 
     const layout = [
