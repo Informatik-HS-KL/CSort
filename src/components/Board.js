@@ -35,9 +35,10 @@ class DisplayImage extends Component {
     render() {
       return (
             <div>
-            <img src= "CSort/test/background.png" />
+
               <label for="ImageUpload" class="ImageInput"></label>
               <input id="ImageUpload" type="file" name="myImage" onChange={this.onImageChange} />
+              <img src= "CSort/test/background.png" />
             </div>
       );
     }
