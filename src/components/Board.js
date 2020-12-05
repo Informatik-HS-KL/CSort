@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import { size } from 'lodash';
+import { red } from '@material-ui/core/colors';
 
 /*Button zum hochladen eines Bildes als Boardhintergrund */
 
@@ -32,18 +34,19 @@ class DisplayImage extends Component {
       }
     };
 
+
     render() {
       return (
-            <div>
 
+            <div style={{background:`url('${process.env.PUBLIC_URL}/test/background.png')`, width:'100%', height:'100%', backgroundSize:'cover'}}>
               <label for="ImageUpload" class="ImageInput"></label>
               <input id="ImageUpload" type="file" name="myImage" onChange={this.onImageChange} />
-              <img src= "CSort/test/background.png" />
             </div>
+
       );
     }
   }
   export default DisplayImage;
-    
 
+ 
 
