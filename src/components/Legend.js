@@ -8,16 +8,57 @@ import { AiFillEdit } from "react-icons/ai";
 
 Modal.setAppElement('#root')
 class Legend extends Component {
-    constructor(){
-        super()
+    constructor(props){
+        super(props)
         this.state = {
              modalOpen: false,
-             text: "",
+             legendList: [
+                {color: "green", text: ""},
+                {color: "yellow", text: ""},
+                {color: "red", text: ""},
+                {color: "purple", text: ""},
+                {color: "blue", text: ""},
+                {color: "lightblue", text: ""},
+                {color: "white", text: ""},
+            ],
+            helperList: [
+                {tag: ""},
+                {tag: ""},
+                {tag: ""},
+                {tag: ""},
+                {tag: ""},
+                {tag: ""},
+                {tag: ""},
+            ]            
         }
-    }      
+    }   
+
+    /* Funktion für OK Button*/
+    commitLegendChanges() {
+        for (var i=0; i <= 6; i++){
+            this.state.legendList[i].text = this.state.helperList[i].tag;
+        }
+    }
+
+    /* Funktion für Abbrechen Button*/
+    abortLegendChanges() {
+        for (var i=0; i <= 6; i++){
+            this.state.helperList[i].tag = this.state.legendList[i].text;
+        }
+    }
+
+    /* Updaten des Hilfsarrays */
+    handleLegendTagChange = idx => evt => {
+        const newLegendTags = this.state.helperList.map((legendTag, sidx) => {
+          if (idx !== sidx) return legendTag;
+          return { ...legendTag, tag: evt.target.value };
+        });
+    
+        this.setState({ helperList: newLegendTags });
+      };
           
     render() {        
-        /*Style für den Button der den Modal öffnet*/
+        /* Style für die Buttons */
         const Button = styled.button`
             background: white;
             border-radius: 4px;
@@ -32,16 +73,24 @@ class Legend extends Component {
             { i: 'b', x: 1, y: 0, w: 1, h: 3, static: true },
             { i: 'c', x: 0.5, y: 3, w: 1, h: 1, static: true }
            ];
+
+        const legendTags = this.state.legendList.map(item =>(
+            <div style={{display: "inline", marginLeft: 10}}>
+                <span className= {'small-dot dot-' + item.color }/>
+                {item.text}
+            </div>
+
+        ))
         
         return ( 
-            <div>
+            <div style={{marginLeft: 10}}>
                 {/* Inhalt der Legende */}
                 Legende:
 
-                {/* Legendenelemente */}
-              
+                {/* Ausgabe der Legendenelemente */}
+                {legendTags}
 
-                {/* Button */}
+                {/* Button zum Öffnen des Modals */}
                 <Button style={{right: 5, top: 2}} onClick={()=> this.setState({modalOpen: true})}><AiFillEdit /></Button>
 
                 {/* Modal */}
@@ -63,61 +112,94 @@ class Legend extends Component {
                             outline: 'none',
                             padding: 0,                            
                             backgroundColor: '#ECECEC'
-                          }
-             
+                          }             
                     }}
                 >
 
                     {/* Modal-Inhalt */}
                     <h2 style={{backgroundColor: "#C4C4C4", height: 50}}>
-                        Farbcodierung hinzufügen
-                        
-                    </h2>
-                    <br/>  
+                        Farbcodierung hinzufügen                        
+                    </h2><br/>  
 
                     {/* Legendenfelder */}              
                     <GridLayout className="layout" layout={layout} cols={2} rowHeight={window.innerHeight * 0.1} width={window.innerWidth * 0.5} margin={[50,0]}>
                         <div key="a">
-
                             {/*grün*/} 
-                            <LegendTag color="green"/> <br/>   
+                            <LegendTag 
+                                color = {"green"} 
+                                handleLegendTagChange = {this.handleLegendTagChange} 
+                                valueAtIndex = {this.state.helperList[0].tag} 
+                                arrayIndex = {0} 
+                            /> <br/>   
 
                             {/*gelb*/}
-                            <LegendTag color="yellow"/> <br/>
+                            <LegendTag 
+                                color = {"yellow"} 
+                                handleLegendTagChange = {this.handleLegendTagChange} 
+                                valueAtIndex = {this.state.helperList[1].tag} 
+                                arrayIndex = {1} 
+                            /><br/>
 
                             {/*rot*/}
-                            <LegendTag color="red"/>
+                            <LegendTag 
+                                color = {"red"} 
+                                handleLegendTagChange = {this.handleLegendTagChange} 
+                                valueAtIndex = {this.state.helperList[2].tag} 
+                                arrayIndex = {2} 
+                            />                            
                         </div>
 
                         <div key="b"> 
                             {/*lila*/}  
-                            <LegendTag color="purple"/> <br/>
-                            
-                            {/*blau*/}
-                            <LegendTag color="blue"/><br/>
+                                <LegendTag 
+                                color = {"purple"} 
+                                handleLegendTagChange = {this.handleLegendTagChange} 
+                                valueAtIndex = {this.state.helperList[3].tag} 
+                                arrayIndex = {3} 
+                            /> <br/>
 
-                            {/*hellblau*/}
-                            <LegendTag color="lightblue"/>                                           
+                            {/*blau*/}  
+                            <LegendTag 
+                                color = {"blue"} 
+                                handleLegendTagChange = {this.handleLegendTagChange} 
+                                valueAtIndex = {this.state.helperList[4].tag} 
+                                arrayIndex = {4} 
+                            /> <br/>
+
+                            {/*hellblau*/}  
+                            <LegendTag 
+                                color = {"lightblue"} 
+                                handleLegendTagChange = {this.handleLegendTagChange} 
+                                valueAtIndex = {this.state.helperList[5].tag} 
+                                arrayIndex = {5} 
+                            />                                   
                         </div>
 
                         <div key="c">                            
                             {/*weiß*/}
-                            <LegendTag />
+                            <LegendTag 
+                                color = {"white"} 
+                                handleLegendTagChange = {this.handleLegendTagChange} 
+                                valueAtIndex = {this.state.helperList[6].tag} 
+                                arrayIndex = {6} 
+                            />                            
                         </div>
                     </GridLayout>
 
                     {/* Buttons */}
-                    <Button style= {{left: 20, bottom: 20 }} onClick = {()=> this.setState({modalOpen: false, text: ""})}>
-                         Abbrechen 
+                    <Button style= {{left: 20, bottom: 20 }} onClick = {()=> (
+                        this.setState({modalOpen: false}),
+                        this.abortLegendChanges())}> Abbrechen 
                     </Button>
                     <Button style={{right: 20, bottom: 20}}onClick = {()=> (
-                        this.setState({modalOpen: false}), 
-                        this.props.createLegendTag(this.state.text))}> OK
+                        this.setState({modalOpen: false}),
+                        this.commitLegendChanges())}> OK
                     </Button>
                 </Modal>                
             </div>
         )
     }
+    onUpdate (text) {this.setState({text})}
 }
 
 export default Legend;
