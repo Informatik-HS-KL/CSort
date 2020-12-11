@@ -1,31 +1,112 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
-import Draggable from "react-draggable";
 import '../css/App.css';
+import { useDrag } from 'react-dnd';
+import { ItemTypes } from '../components/item'
 
 
-class CardList extends Component {
-    render() {
-        const listItems = this.props.cardList.map(item =>(
-            <Draggable>
-            <Card style={{ width: '45%', height:'200px',float:'left', margin: '8px', padding:'10px'}}
-            >
+function CardList(props) {
+
+    const [{ isDragging }, drag] = useDrag({
+        item: { type: ItemTypes.CARD, },
+        collect: monitor => ({
+            isDragging: !!monitor.isDragging()
+        })
+    })
+
+
+    const listCards = props.cardList.map(item => (item.heading === false ?
+        <div
+            style={{ display: "inline-block", position: "relative", width: "40%", margin: "1% 5% 1% 5%", }}>
+            <div style={{ marginTop: "100%" }}
+            ></div>
+            <Card             ref={drag}
+
+                style={{
+                    position: "absolute",
+                    top: "0",
+                    bottom: "0",
+                    left: "0",
+                    right: "0",
+                }}>
                 <CardContent
-                    style = {{textAlign:'center'}}>
-                    <Typography>
+                    className={item.color}
+                    style={{ height: "100%", weight: "100%" }}>
+                    <div style={{
+                        height: "100%",
+                        weight: "100%",
+                        textAlign: "center",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center"
+                    }}                               
+                    >
                         {item.text}
-                    </Typography>
+                    </div>
                 </CardContent>
-                        
-                   
             </Card>
-            </Draggable>
+        </div>
+        : <div></div>
+    ))
 
-        ))
-        return <div>{listItems}</div>
-    }
+    const listHeadings = props.cardList.map(item => (item.heading === true ?
+
+        <div style={{ display: "inline-block", position: "relative", width: "40%", margin: "1% 5% 1% 5%" }}
+            ref={drag}
+        >
+            <div style={{ marginTop: "25%" }}></div>
+            <Card
+                style={{
+                    position: "absolute",
+                    top: "0",
+                    bottom: "0",
+                    left: "0",
+                    right: "0",
+                }}>
+                <CardContent
+                    className={item.color}
+                    style={{ height: "100%", weight: "100%" }}>
+                    <div style={{
+                        height: "100%",
+                        weight: "100%",
+                        textAlign: "center",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center"
+                    }}>
+                        {item.text}
+                    </div>
+                </CardContent>
+            </Card>
+        </div>
+        : <div></div>
+    ))
+
+
+    const ColoredLine = ({ color }) => (
+        <hr
+            style={{
+                color: color,
+                backgroundColor: color,
+                clear: "left",
+                width: "90%",
+                margin: "5%"
+            }}
+        />
+    )
+
+    return (<div>
+        {listHeadings}
+
+        {ColoredLine("")}
+        <div  >
+            {listCards}
+        </div>
+
+    </div >)
+
+
 }
 
 export default CardList;
