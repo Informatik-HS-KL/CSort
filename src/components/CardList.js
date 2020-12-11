@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import '../css/App.css';
@@ -8,7 +8,7 @@ import { ItemTypes } from '../components/item'
 
 function CardList(props) {
 
-    const [{ isDragging }, drag] = useDrag({
+    const [, drag] = useDrag({
         item: { type: ItemTypes.CARD, },
         collect: monitor => ({
             isDragging: !!monitor.isDragging()
