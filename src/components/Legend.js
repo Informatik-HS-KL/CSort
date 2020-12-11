@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import GridLayout from 'react-grid-layout';
 import Modal from 'react-modal' ;
 import 'reactjs-popup/dist/index.css';
-import { AiFillEdit } from "react-icons/ai";
+import { AiFillEdit, AiFillInfoCircle} from "react-icons/ai";
 
 Modal.setAppElement('#root')
 class Legend extends Component {
@@ -74,13 +74,18 @@ class Legend extends Component {
             { i: 'c', x: 0.5, y: 3, w: 1, h: 1, static: true }
            ];
 
-        const legendTags = this.state.legendList.map(item =>(
-            <div style={{display: "inline", marginLeft: 10}}>
-                <span className= {'small-dot dot-' + item.color }/>
-                {item.text}
-            </div>
-
-        ))
+        const legendTags = this.state.legendList.map(function(item) {
+            for (var i = 0; i <= 6; i++){
+                if(item.text !== ""){
+                    return(
+                        <div style={{display: "inline", marginLeft: 15}}>
+                            <span className= {'small-dot dot-' + item.color }/>
+                            <div style= {{display: "inline", verticalAlign: "top"}}>{item.text}</div>
+                        </div>
+                    )
+                }
+            }
+        })
         
         return ( 
             <div style={{marginLeft: 10}}>
@@ -118,8 +123,9 @@ class Legend extends Component {
 
                     {/* Modal-Inhalt */}
                     <h2 style={{backgroundColor: "#C4C4C4", height: 50}}>
-                        Farbcodierung hinzufügen                        
-                    </h2><br/>  
+                        Farbcodierung hinzufügen 
+                        <span style={{position: "absolute", right: 5}}><AiFillInfoCircle /></span>                 
+                    </h2><br/>                      
 
                     {/* Legendenfelder */}              
                     <GridLayout className="layout" layout={layout} cols={2} rowHeight={window.innerHeight * 0.1} width={window.innerWidth * 0.5} margin={[50,0]}>
@@ -187,19 +193,18 @@ class Legend extends Component {
                     </GridLayout>
 
                     {/* Buttons */}
-                    <Button style= {{left: 20, bottom: 20 }} onClick = {()=> (
-                        this.setState({modalOpen: false}),
-                        this.abortLegendChanges())}> Abbrechen 
+                    <Button style= {{left: 20, bottom: 20 }} onClick = {()=> {
+                        this.setState({modalOpen: false});
+                        this.abortLegendChanges()}}> Abbrechen 
                     </Button>
-                    <Button style={{right: 20, bottom: 20}}onClick = {()=> (
-                        this.setState({modalOpen: false}),
-                        this.commitLegendChanges())}> OK
+                    <Button style={{right: 20, bottom: 20}}onClick = {()=> {
+                        this.setState({modalOpen: false});
+                        this.commitLegendChanges()}}> OK
                     </Button>
                 </Modal>                
             </div>
         )
-    }
-    onUpdate (text) {this.setState({text})}
+    }    
 }
 
 export default Legend;

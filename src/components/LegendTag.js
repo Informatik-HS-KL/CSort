@@ -11,7 +11,7 @@ class LegendTag extends Component {
                     name="text" 
                     placeholder = "Legendenattribut"
                     type = "text"                                 
-                    maxLength= "30"            
+                    maxLength= "20"            
                     value= {this.props.valueAtIndex}
                     onChange={this.props.handleLegendTagChange(this.props.arrayIndex)}                   
                     >
