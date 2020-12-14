@@ -3,32 +3,29 @@ import { useDrag } from 'react-dnd';
 import { ItemTypes } from './item'
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import '../css/App.css';
 
-const style = {
-  position: 'absolute',
-  border: '1px dashed gray',
-  backgroundColor: 'white',
-  padding: '0.5rem 1rem',
-  cursor: 'move',
-}
+//React Komponente als ArrowFunction
+export const Box = ({ id, left, top, children, color, heading, onBoard }) => {
 
-export const Box = ({ id, left, top, children, color }) => {
-
+  //Drag and Drop Hook -> Drag
   const [{ isDragging }, drag] = useDrag({
-    item: { id, left, top, type: ItemTypes.CARD },
+    //item wird an die Drops weitergereicht
+    item: { id, left, top, onBoard, type: ItemTypes.CARD },
     collect: (monitor) => ({
       isDragging: !!monitor.isDragging(),
     }),
   })
 
+  //Weite abhängig von onBoard
+  let newWidth = ""
+  onBoard ? newWidth = "10%" : newWidth = "39%"
+
+  let newPosition=""
+  onBoard ? newPosition="absolute" : newPosition = "relative"
+
   return (
-    <div
-      ref={drag}
-      style={{ display: "inline-block", position: "relative", width: "40%", margin: "1% 5% 1% 5%", }}>
-      <div style={{ marginTop: "100%" }}
-      >
-      </div>
+    <div ref={drag} style={{ display: "inline-block", position: newPosition, width: newWidth, margin: "1% 5% 1% 5%", left, top }}>
+      { heading === true ? <div style={{ marginTop: "25%" }}></div> : <div style={{ marginTop: "100%" }}></div>}
       <Card
         style={{
           position: "absolute",
@@ -53,13 +50,7 @@ export const Box = ({ id, left, top, children, color }) => {
           </div>
         </CardContent>
       </Card>
-    </div>
+    </div >
 
   )
 }
-
-/*
- <div ref={drag} style={{ ...style, left, top }}>
-      {children}
-    </div>
-        */

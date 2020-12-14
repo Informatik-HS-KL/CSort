@@ -16,27 +16,45 @@ class App extends Component {
       ],
       lastIndex: 0,
     }
+    this.setLocation = this.setLocation.bind(this)
     this.createCard = this.createCard.bind(this)
     this.setCardOnBoard = this.setCardOnBoard.bind(this)
-
   }
+
+  //Funktion zum Erstellen von Karten/Uberschriften im State
   createCard(text, color, heading) {
     this.setState(prevState => ({
+      //alter State wird kopiert
       cards: [...prevState.cards,
       {
         id: this.state.lastIndex,
         text: text,
         color: color,
         heading: heading,
-        onBoard: false
-      }], lastIndex: this.state.lastIndex + 1,
+        onBoard: false,
+        left: 0,
+        top: 0,
+      }],
+      lastIndex: this.state.lastIndex + 1,
     }))
   }
 
-  setCardOnBoard(id) {
+  //Funktion zum Ändern von onBoard im State
+  //onBoard ist dazu da um nachzuverfolgen ob eine Karte noch in der Liste ist oder auf dem Board
+  setCardOnBoard(id, value) {
     const elementsIndex = this.state.cards.findIndex(element => element.id === id)
     let newArray = [...this.state.cards]
-    newArray[elementsIndex] = { ...newArray[elementsIndex], onBoard: !newArray[elementsIndex].onBoard }
+    newArray[elementsIndex] = { ...newArray[elementsIndex], onBoard: value }
+    this.setState({
+      cards: newArray,
+    });
+  }
+
+  //Funktion zum Ändern der Location einer Karte im State
+  setLocation(id, left, top) {
+    const elementsIndex = this.state.cards.findIndex(element => element.id === id)
+    let newArray = [...this.state.cards]
+    newArray[elementsIndex] = { ...newArray[elementsIndex], left: left, top: top }
     this.setState({
       cards: newArray,
     });
@@ -53,16 +71,17 @@ class App extends Component {
     var headerHeight = document.getElementById("header").offsetHeight;
 
     return (
+      //DndProvider für Drag and Drop
       <DndProvider backend={HTML5Backend}>
         <GridLayout className="layout" layout={layout} cols={12} rowHeight={window.innerHeight / 18} width={window.innerWidth} margin={[0, 0]}>
           <div key="a" style={{ backgroundColor: "#ECECEC" }}> {/* Neue Überschrift/Karte Block */}
             <AddCard createCard={this.createCard} />
           </div>
           <div key="b" style={{ backgroundColor: "#ECECEC" }}> {/* Noch nicht platzierte Karten Block */}
-            <CardList cardList={this.state.cards} />
+            <CardList cardList={this.state.cards} setCardOnBoard={this.setCardOnBoard} setLocation={this.setLocation} />
           </div>
           <div key="c" style={{ backgroundColor: "#565656", display: "flex" }}> {/* Board */}
-            <Board cardList={this.state.cards} setCardOnBoard={this.setCardOnBoard} />
+            <Board cardList={this.state.cards} setCardOnBoard={this.setCardOnBoard} setLocation={this.setLocation} />
           </div>
           <div key="d" style={{ backgroundColor: "#c4c4c4" }}> {/* Legende  */}
             <Legend />
