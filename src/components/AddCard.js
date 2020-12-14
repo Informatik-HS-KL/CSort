@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 import Modal from 'react-modal'
-import '../css/AddCard.css';
+
 
 Modal.setAppElement('#root')
 class AddCard extends Component {
