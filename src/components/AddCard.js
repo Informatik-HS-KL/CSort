@@ -68,7 +68,6 @@ class AddCard extends Component {
                 <br />
                 <div>
                     <span onClick={(e) => this.handleRadio(e)} className={'dot dot-green'}></span>
-                    
                     <span onClick={(e) => this.handleRadio(e)} className={'dot dot-yellow'}></span>
                     <span onClick={(e) => this.handleRadio(e)} className={'dot dot-red'}></span>
                     <span onClick={(e) => this.handleRadio(e)} className={'dot dot-purple'}></span>

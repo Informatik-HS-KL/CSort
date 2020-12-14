@@ -13,21 +13,33 @@ class App extends Component {
     super();
     this.state = {
       cards: [
-      ]
+      ],
+      lastIndex: 0,
     }
     this.createCard = this.createCard.bind(this)
+    this.setCardOnBoard = this.setCardOnBoard.bind(this)
+
   }
   createCard(text, color, heading) {
     this.setState(prevState => ({
       cards: [...prevState.cards,
       {
-        id: 1,
+        id: this.state.lastIndex,
         text: text,
         color: color,
         heading: heading,
-      }
-      ]
+        onBoard: false
+      }], lastIndex: this.state.lastIndex + 1,
     }))
+  }
+
+  setCardOnBoard(id) {
+    const elementsIndex = this.state.cards.findIndex(element => element.id === id)
+    let newArray = [...this.state.cards]
+    newArray[elementsIndex] = { ...newArray[elementsIndex], onBoard: !newArray[elementsIndex].onBoard }
+    this.setState({
+      cards: newArray,
+    });
   }
 
   render() {
@@ -36,9 +48,9 @@ class App extends Component {
       { i: 'b', x: 0, y: 6, w: 3, h: 12, static: true },
       { i: 'c', x: 3, y: 0, w: 9, h: 17, static: true },
       { i: 'd', x: 3, y: 17, w: 9, h: 1, static: true }
-     ];
+    ];
 
-     var headerHeight = document.getElementById("header").offsetHeight;
+    var headerHeight = document.getElementById("header").offsetHeight;
 
     return (
       <DndProvider backend={HTML5Backend}>
@@ -49,8 +61,8 @@ class App extends Component {
           <div key="b" style={{ backgroundColor: "#ECECEC" }}> {/* Noch nicht platzierte Karten Block */}
             <CardList cardList={this.state.cards} />
           </div>
-          <div key="c" style={{ backgroundColor: "#565656",display: "flex" }}> {/* Board */}
-            <Board />
+          <div key="c" style={{ backgroundColor: "#565656", display: "flex" }}> {/* Board */}
+            <Board cardList={this.state.cards} setCardOnBoard={this.setCardOnBoard} />
           </div>
           <div key="d" style={{ backgroundColor: "#c4c4c4" }}> {/* Legende  */}
             <Legend />
