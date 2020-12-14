@@ -88,7 +88,7 @@ class Legend extends Component {
         })
         
         return ( 
-            <div style={{marginLeft: 10}}>
+            <div style={{width:'100%', height:'100%', padding: 10}}>
                 {/* Inhalt der Legende */}
                 Legende:
 
@@ -96,8 +96,7 @@ class Legend extends Component {
                 {legendTags}
 
                 {/* Button zum Öffnen des Modals */}
-                <Button style={{right: 5, top: 2}} onClick={()=> this.setState({modalOpen: true})}><AiFillEdit /></Button>
-
+                <button className="LegendButton"/*style={{right: 5, top: 2}}*/ onClick={()=> this.setState({modalOpen: true})}></button>
                 {/* Modal */}
                 <Modal 
                     isOpen = {this.state.modalOpen} 

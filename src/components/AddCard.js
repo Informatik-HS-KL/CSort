@@ -23,20 +23,20 @@ class AddCard extends Component {
     }
 
     render() {
-        return <div>
-            {/* Button für Ueberschrift */}
+        return( <div style={{textAlign:"center"}}>
+            <h4>Überschriften</h4>
             <Button
                 variant="contained"
                 onClick={() => this.setState({ modalOpen: true, heading: true })}
-                style={{ width: '40%', height: '60px', textAlign: 'center', margin: '5% 25% 2.5% 25%' }}
-            > Überschriften erstellen
+                style={{ width: '12em', height: '4em', textAlign: 'center', /*margin: '2% 25% 2.5% 25%'*/ marginTop:'2%', backgroundColor:'white' }}
+            > 
             </Button>
-            {/* Button für Karten */}
+            <h4>Karten</h4>
             <Button
                 variant="contained"
                 onClick={() => this.setState({ modalOpen: true })}
-                style={{ width: '40%', height: '180px', textAlign: 'center', margin: '2.5% 25% 5% 25%' }}
-            > Karte erstellen
+                style={{ width: '10em', height: '10em', textAlign: 'center', /*margin: '2% 25% 5% 25%'*/ marginTop:'2%', backgroundColor:'white'}}
+            > 
             </Button>
             {/* Modal (Fenster was sich im Vordergrund öffnet)*/}
             <Modal
@@ -100,7 +100,7 @@ class AddCard extends Component {
                 > Fertig
                 </Button>
             </Modal>
-        </div>
+        </div>)
     }
 }
 

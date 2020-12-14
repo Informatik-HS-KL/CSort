@@ -39,14 +39,14 @@ function CardList(props) {
 
     return (
         <div ref={drop} style={{ width: "100%", height: "100%" }}>
+             <h4 style={{textAlign:"center"}}>Ungeordnet</h4>
             {listHeadings}{/* Uberschriften */}
             <hr style={{ clear: "left", width: "90%", margin: "5%" }} />{/* Trennlinie */}
             <div  >
                 {listCards}{/* Karten */}
             </div>
         </div >)
-
-
+ 
 }
 
 export default CardList;
