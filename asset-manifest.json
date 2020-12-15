@@ -1,25 +1,25 @@
 {
   "files": {
-    "main.css": "/CSort/static/css/main.e53d2735.chunk.css",
-    "main.js": "/CSort/static/js/main.1d4f2a37.chunk.js",
-    "main.js.map": "/CSort/static/js/main.1d4f2a37.chunk.js.map",
-    "runtime-main.js": "/CSort/static/js/runtime-main.10717d34.js",
-    "runtime-main.js.map": "/CSort/static/js/runtime-main.10717d34.js.map",
-    "static/css/2.4272c3f6.chunk.css": "/CSort/static/css/2.4272c3f6.chunk.css",
-    "static/js/2.81c5898c.chunk.js": "/CSort/static/js/2.81c5898c.chunk.js",
-    "static/js/2.81c5898c.chunk.js.map": "/CSort/static/js/2.81c5898c.chunk.js.map",
-    "static/js/3.f3175aec.chunk.js": "/CSort/static/js/3.f3175aec.chunk.js",
-    "static/js/3.f3175aec.chunk.js.map": "/CSort/static/js/3.f3175aec.chunk.js.map",
+    "main.css": "/CSort/static/css/main.607f0e4c.chunk.css",
+    "main.js": "/CSort/static/js/main.7ff3b8da.chunk.js",
+    "main.js.map": "/CSort/static/js/main.7ff3b8da.chunk.js.map",
+    "runtime-main.js": "/CSort/static/js/runtime-main.d5bc2174.js",
+    "runtime-main.js.map": "/CSort/static/js/runtime-main.d5bc2174.js.map",
+    "static/css/2.217c66f8.chunk.css": "/CSort/static/css/2.217c66f8.chunk.css",
+    "static/js/2.c4660811.chunk.js": "/CSort/static/js/2.c4660811.chunk.js",
+    "static/js/2.c4660811.chunk.js.map": "/CSort/static/js/2.c4660811.chunk.js.map",
+    "static/js/3.31ff2dc7.chunk.js": "/CSort/static/js/3.31ff2dc7.chunk.js",
+    "static/js/3.31ff2dc7.chunk.js.map": "/CSort/static/js/3.31ff2dc7.chunk.js.map",
     "index.html": "/CSort/index.html",
-    "static/css/2.4272c3f6.chunk.css.map": "/CSort/static/css/2.4272c3f6.chunk.css.map",
-    "static/css/main.e53d2735.chunk.css.map": "/CSort/static/css/main.e53d2735.chunk.css.map",
-    "static/js/2.81c5898c.chunk.js.LICENSE.txt": "/CSort/static/js/2.81c5898c.chunk.js.LICENSE.txt"
+    "static/css/2.217c66f8.chunk.css.map": "/CSort/static/css/2.217c66f8.chunk.css.map",
+    "static/css/main.607f0e4c.chunk.css.map": "/CSort/static/css/main.607f0e4c.chunk.css.map",
+    "static/js/2.c4660811.chunk.js.LICENSE.txt": "/CSort/static/js/2.c4660811.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.10717d34.js",
-    "static/css/2.4272c3f6.chunk.css",
-    "static/js/2.81c5898c.chunk.js",
-    "static/css/main.e53d2735.chunk.css",
-    "static/js/main.1d4f2a37.chunk.js"
+    "static/js/runtime-main.d5bc2174.js",
+    "static/css/2.217c66f8.chunk.css",
+    "static/js/2.c4660811.chunk.js",
+    "static/css/main.607f0e4c.chunk.css",
+    "static/js/main.7ff3b8da.chunk.js"
   ]
 }
