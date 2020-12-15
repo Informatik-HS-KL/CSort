@@ -73,6 +73,7 @@ input[type="file"]{
   float: right;
   margin: 0.2em;
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+  border: none;
 }
 
 .LegendButton:hover{
@@ -84,27 +85,46 @@ input[type="file"]{
   content:'+';
   font-size: 2em;
   text-align: center;
-  transform: translate(-30%,-30%);
+  transform: translate(-18%,-25%);
 }
+
+.LegendInfo{
+  width: 2em;
+  height: 2em;
+  background-color: #ffffff;
+  border-radius: 50%;
+  float: right;
+  margin: 0.2em;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+}
+
+.LegendInfo::before{
+  display:block;
+  content:'i';
+  font-size: 1.2em;
+  text-align: center;  
+} 
+
 .dot {
-  height: 25px;
-  width: 25px;  
+  height: 2em;
+  width: 2em;  
   border-radius: 50%;
   display: inline-block;    
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.25);
-  margin-top: 2px;
-  margin-right: 10px;
-  margin-left: 10px;
+  margin-top: 0.25em;
+  margin-right: 0.5em;
+  margin-left: 0.5em;
 }
 
 .small-dot {
-  height: 20px;
-  width: 20px;  
+  height: 1.5em;
+  width: 1.5em;  
   border-radius: 50%;
   display: inline-block;    
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.25);
   margin-top: 2px;
   margin-right: 5px;
+  vertical-align: top;
 }
 
 .dot-green{
@@ -137,7 +157,7 @@ input[type="file"]{
 
 .legend_input { 
   width: 75%;
-  vertical-align: top;
+  vertical-align: 0.5em;
   border-width:0px;
   background-color: white;  
 }
@@ -145,4 +165,14 @@ input[type="file"]{
 .Shadow_Element {
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
   background-color: white;
+}
+
+.legend {
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: #C4C4C4;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
 }

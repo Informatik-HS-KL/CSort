@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
 import LegendTag from './LegendTag';
-import styled from 'styled-components';
 import GridLayout from 'react-grid-layout';
 import Modal from 'react-modal' ;
+import Button from '@material-ui/core/Button';
 import 'reactjs-popup/dist/index.css';
-import { AiFillEdit, AiFillInfoCircle} from "react-icons/ai";
 
 Modal.setAppElement('#root')
 class Legend extends Component {
@@ -58,20 +57,12 @@ class Legend extends Component {
       };
           
     render() {        
-        /* Style für die Buttons */
-        const Button = styled.button`
-            background: white;
-            border-radius: 4px;
-            border: none;
-            color: black;
-            box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
-            position: absolute`
-        ;  
+  
         
         const layout = [
-            { i: 'a', x: 0, y: 0, w: 1, h: 3, static: true },
-            { i: 'b', x: 1, y: 0, w: 1, h: 3, static: true },
-            { i: 'c', x: 0.5, y: 3, w: 1, h: 1, static: true }
+            { i: 'a', x: 0, y: 0, w: 1, h: 1, static: true },
+            { i: 'b', x: 1, y: 0, w: 1, h: 1, static: true },
+            { i: 'c', x: 0.5, y: 1, w: 1, h: 0.33, static: true }
            ];
 
         const legendTags = this.state.legendList.map(function(item) {
@@ -88,7 +79,7 @@ class Legend extends Component {
         })
         
         return ( 
-            <div style={{width:'100%', height:'100%', padding: 10}}>
+            <div className ="legend" style={{ padding: 10}}>
                 {/* Inhalt der Legende */}
                 Legende:
 
@@ -96,7 +87,7 @@ class Legend extends Component {
                 {legendTags}
 
                 {/* Button zum Öffnen des Modals */}
-                <button className="LegendButton"/*style={{right: 5, top: 2}}*/ onClick={()=> this.setState({modalOpen: true})}></button>
+                <button className="LegendButton" onClick={()=> this.setState({modalOpen: true})}></button>
                 {/* Modal */}
                 <Modal 
                     isOpen = {this.state.modalOpen} 
@@ -121,13 +112,13 @@ class Legend extends Component {
                 >
 
                     {/* Modal-Inhalt */}
-                    <h2 style={{backgroundColor: "#C4C4C4", height: 50}}>
-                        Farbcodierung hinzufügen 
-                        <span style={{position: "absolute", right: 5}}><AiFillInfoCircle /></span>                 
-                    </h2><br/>                      
+                    <div style={{backgroundColor: "#C4C4C4", height: "4em", paddingTop:"0.5em"}}>
+                        <h2 style={{display: "inline-block"}}>Farbcodierung hinzufügen </h2>
+                        <span className= "LegendInfo" style={{position:"absolute", right: "1em", top:"1em"}}></span>
+                    </div>                      
 
                     {/* Legendenfelder */}              
-                    <GridLayout className="layout" layout={layout} cols={2} rowHeight={window.innerHeight * 0.1} width={window.innerWidth * 0.5} margin={[50,0]}>
+                    <GridLayout className="layout" layout={layout} cols={2} width={window.innerWidth * 0.5} margin={[50,50]}>
                         <div key="a">
                             {/*grün*/} 
                             <LegendTag 
@@ -135,7 +126,7 @@ class Legend extends Component {
                                 handleLegendTagChange = {this.handleLegendTagChange} 
                                 valueAtIndex = {this.state.helperList[0].tag} 
                                 arrayIndex = {0} 
-                            /> <br/>   
+                            /><br/>   
 
                             {/*gelb*/}
                             <LegendTag 
@@ -192,13 +183,13 @@ class Legend extends Component {
                     </GridLayout>
 
                     {/* Buttons */}
-                    <Button style= {{left: 20, bottom: 20 }} onClick = {()=> {
+                    <Button variant="contained" style={{ margin: '15px' }} onClick = {()=> {
                         this.setState({modalOpen: false});
                         this.abortLegendChanges()}}> Abbrechen 
                     </Button>
-                    <Button style={{right: 20, bottom: 20}}onClick = {()=> {
+                    <Button variant="contained" color="primary" style={{ margin: '15px' }} onClick = {()=> {
                         this.setState({modalOpen: false});
-                        this.commitLegendChanges()}}> OK
+                        this.commitLegendChanges()}}> Übernehmen
                     </Button>
                 </Modal>                
             </div>
