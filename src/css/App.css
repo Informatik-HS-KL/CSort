@@ -1,3 +1,10 @@
+/*Bitte alle Schriften hier eintragen*/
+h4, h3, h2, Button, .ImageInput{
+  font-family: 'Roboto', sans-serif;
+  font-style: normal;
+  color: #61C2CC;
+}
+
 .App {
   text-align: center;
 }
@@ -42,8 +49,9 @@
   height: 4em;
   background-color: #ffffff;
   border-radius: 50%;
-  float: right;
-  margin: 1em;
+  position:absolute;
+  top: 0.8em;
+  right: 0.8em;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
@@ -58,7 +66,7 @@
   content:'+';
   font-size: 4em;
   text-align: center;
-  transform: translateY(-25%);
+  transform: translateY(-18%);
 }
 
 input[type="file"]{
@@ -70,8 +78,9 @@ input[type="file"]{
   height: 2em;
   background-color: #ffffff;
   border-radius: 50%;
-  float: right;
-  margin: 0.2em;
+  position:absolute;
+  top: 0.8em;
+  right: 0.8em;
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
   border: none;
 }
@@ -85,7 +94,7 @@ input[type="file"]{
   content:'+';
   font-size: 2em;
   text-align: center;
-  transform: translate(-18%,-25%);
+  transform: translate(-8%,-18%);
 }
 
 .LegendInfo{
