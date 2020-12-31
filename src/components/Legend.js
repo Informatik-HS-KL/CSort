@@ -4,6 +4,7 @@ import GridLayout from 'react-grid-layout';
 import Modal from 'react-modal' ;
 import Button from '@material-ui/core/Button';
 import 'reactjs-popup/dist/index.css';
+import Tooltip from '@material-ui/core/Tooltip';
 
 Modal.setAppElement('#root')
 class Legend extends Component {
@@ -77,6 +78,8 @@ class Legend extends Component {
                 }
             }
         })
+
+        const tooltipContent = "Ordnen Sie hier den Farben eine Bedeutung zu"
         
         return ( 
             <div className ="legend" style={{ padding: 10}}>
@@ -114,7 +117,9 @@ class Legend extends Component {
                     {/* Modal-Inhalt */}
                     <div style={{backgroundColor: "#C4C4C4", height: "4em", paddingTop:"0.5em"}}>
                         <h2 style={{display: "inline-block"}}>Farbcodierung hinzufügen </h2>
-                        <span className= "LegendInfo" style={{position:"absolute", right: "1em", top:"1em"}}></span>
+                        <Tooltip title={tooltipContent} placement="right" arrow>
+                            <span className= "LegendInfo" style={{position:"absolute", right: "1em", top:"1em"}}></span>
+                        </Tooltip>
                     </div>                      
 
                     {/* Legendenfelder */}              
