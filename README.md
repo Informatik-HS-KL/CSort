@@ -13,6 +13,7 @@ npm install @material-ui/core
 
 npm install react-modal
 
+npm install react-serialize
 
 # Getting Started with Create React App
 
