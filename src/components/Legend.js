@@ -5,14 +5,15 @@ import Modal from 'react-modal' ;
 import Button from '@material-ui/core/Button';
 import 'reactjs-popup/dist/index.css';
 import Tooltip from '@material-ui/core/Tooltip';
+import { withStyles } from '@material-ui/core/styles';
 
 Modal.setAppElement('#root')
 class Legend extends Component {
     constructor(props){
         super(props)
         this.state = {
-             modalOpen: false,
-             legendList: [
+            modalOpen: false,
+            legendList: [
                 {color: "green", text: ""},
                 {color: "yellow", text: ""},
                 {color: "red", text: ""},
@@ -80,6 +81,19 @@ class Legend extends Component {
         })
 
         const tooltipContent = "Ordnen Sie hier den Farben eine Bedeutung zu"
+
+        const LightTooltip = withStyles((theme) => ({
+            tooltip: {
+              backgroundColor: theme.palette.common.white,
+              color: 'rgba(0, 0, 0, 0.87)',
+              boxShadow: theme.shadows[1],
+              fontSize: "1.5em",
+              width: 200,
+            },
+            arrow: {
+                color: theme.palette.common.white,
+            }
+          }))(Tooltip);
         
         return ( 
             <div className ="legend" style={{ padding: 10}}>
@@ -117,9 +131,9 @@ class Legend extends Component {
                     {/* Modal-Inhalt */}
                     <div style={{backgroundColor: "#C4C4C4", height: "4em", paddingTop:"0.5em"}}>
                         <h2 style={{display: "inline-block"}}>Farbcodierung hinzufügen </h2>
-                        <Tooltip title={tooltipContent} placement="right" arrow>
+                        <LightTooltip title={tooltipContent} placement="right" arrow>
                             <span className= "LegendInfo" style={{position:"absolute", right: "1em", top:"1em"}}></span>
-                        </Tooltip>
+                        </LightTooltip>
                     </div>                      
 
                     {/* Legendenfelder */}              
