@@ -4,6 +4,8 @@ import { useDrop } from 'react-dnd'
 import axios from 'axios';
 import { useDrag } from 'react-dnd';
 import { Box } from './Box.js'
+import {serialize, deserialize} from 'react-serialize'
+import App from './App'
 
 
 function Board(props) {
@@ -62,10 +64,40 @@ function Board(props) {
     : <div></div>
   ))
 
+  //Karten in eine json und an den Server senden -> cards.json
+  const saveCards=()=>{
+    const data = new FormData();
+    const blob = new Blob([serialize(props.cardList)],{type:"text/plain"});
+    data.append('username', 'test');
+    data.append('filetype', 'cards');
+    data.append('file', blob);
+    console.log(serialize(props.cardList));
+    axios.post("http://localhost:8000/upload_cards", data, { // receive two parameter endpoint url ,form data 
+    });
+  }
+
+  //Lädt die Karten vom Server runter 
+  async function loadCards(){
+    const data = new FormData();
+    const reader = new FileReader();
+    data.append('username', 'test');
+    data.append('filetype', 'cards');
+
+    const res = await axios.get("http://localhost:8000/download_cards", data,{headers:{'Accept':'text/plain'},'responseType':'text'
+    });
+    //Karten liegen als res.data in einem json vor
+    console.log(res.data);
+    for(var i=0;i<res.data.length;i++ ){
+      props.createCard(res.data[i].text, res.data[i].color, res.data[i].heading, res.data[i].onBoard, res.data[i].left, res.data[i].top);
+    }
+  }
+
   return <div ref={drop}
     style={{ background: `url('${process.env.PUBLIC_URL}/test/background.png')`, width: '100%', height: '100%', backgroundSize: 'contain', backgroundRepeat: 'no-repeat'}}>
     <label for="ImageUpload" className="ImageInput"></label>
     <input id="ImageUpload" type="file" name="myImage" onChange={onImageChange} />
+    <a href="#" onClick={saveCards}>Save Cards</a>
+    <a href="#" onClick={loadCards}>Load Cards</a>
     {listCards}{/* Karten/Uberschriften */}
   </div>
 }

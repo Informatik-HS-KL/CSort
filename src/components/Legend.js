@@ -98,7 +98,7 @@ class Legend extends Component {
         return ( 
             <div className ="legend" style={{ padding: 10}}>
                 {/* Inhalt der Legende */}
-                Legende:
+                <h4>Legende:</h4>
 
                 {/* Ausgabe der Legendenelemente */}
                 {legendTags}

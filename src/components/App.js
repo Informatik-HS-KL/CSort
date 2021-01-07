@@ -18,8 +18,10 @@ class App extends Component {
     }
     this.setLocation = this.setLocation.bind(this)
     this.createCard = this.createCard.bind(this)
+    this.createCardOnBoard = this.createCardOnBoard.bind(this)
     this.setCardOnBoard = this.setCardOnBoard.bind(this)
   }
+
 
   //Funktion zum Erstellen von Karten/Uberschriften im State
   createCard(text, color, heading) {
@@ -34,6 +36,24 @@ class App extends Component {
         onBoard: false,
         left: 0,
         top: 0,
+      }],
+      lastIndex: this.state.lastIndex + 1,
+    }))
+  }
+
+  //onBoard, left und top um die Karten wieder vom Server zu laden
+  createCardOnBoard(text, color, heading, onBoard, left, top) {
+    this.setState(prevState => ({
+      //alter State wird kopiert
+      cards: [...prevState.cards,
+      {
+        id: this.state.lastIndex,
+        text: text,
+        color: color,
+        heading: heading,
+        onBoard: onBoard,
+        left: left,
+        top: top,
       }],
       lastIndex: this.state.lastIndex + 1,
     }))
@@ -62,6 +82,7 @@ class App extends Component {
 
   render() {
     const layout = [
+    
       { i: 'a', x: 0, y: 0, w: 3, h: 6, static: true },
       { i: 'b', x: 0, y: 6, w: 3, h: 12, static: true },
       { i: 'c', x: 3, y: 0, w: 9, h: 18, static: true }
@@ -81,7 +102,7 @@ class App extends Component {
               <CardList cardList={this.state.cards} setCardOnBoard={this.setCardOnBoard} setLocation={this.setLocation} />
             </div>
             <div key="c" style={{ backgroundColor: "#565656", display: "flex" }}> {/* Board */}
-              <Board cardList={this.state.cards} setCardOnBoard={this.setCardOnBoard} setLocation={this.setLocation} />
+              <Board createCard={this.createCardOnBoard} cardList={this.state.cards} setCardOnBoard={this.setCardOnBoard} setLocation={this.setLocation} />
             </div>
           </GridLayout>
         </DndProvider>
