@@ -13,7 +13,7 @@ const fs = require('fs')
 const { fstat } = require('fs');
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-  cb(null, 'public/' + req.body.username + '/');
+  cb(null, 'server/' + req.body.username + '/');
 },
 filename: function (req, file, cb) {
   cb(null, req.body.filetype + path.extname(file.originalname))
@@ -22,7 +22,7 @@ filename: function (req, file, cb) {
 
 var boardstorage = multer.diskStorage({
   destination: function (req, file, cb) {
-  cb(null, 'public/' + req.body.username + '/');
+  cb(null, 'server/' + req.body.username + '/');
 },
 filename: function (req, file, cb) {
   cb(null, req.body.filetype + '.json')
@@ -47,7 +47,12 @@ app.post('/upload_background',function(req, res) {
 
 // Karten aus dem public-folder
 app.get('/download_cards', function(req, res){
-  const file = path.resolve(__dirname + '/../public/' + 'test' + '/' + 'cards.json');
+  const file = path.resolve(__dirname + '/../server/' + 'test' + '/' + 'cards.json');
+  res.sendFile(file);
+});
+
+app.get('/download_background', function(req, res){
+  const file = path.resolve(__dirname + '/../server/' + 'test' + '/' + 'background.png');
   res.sendFile(file);
 });
 

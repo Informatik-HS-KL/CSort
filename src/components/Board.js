@@ -1,14 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ItemTypes } from '../components/item'
 import { useDrop } from 'react-dnd'
 import axios from 'axios';
 import { useDrag } from 'react-dnd';
 import { Box } from './Box.js'
-import {serialize, deserialize} from 'react-serialize'
-import App from './App'
+import { formatMs } from '@material-ui/core';
 
+var loaded = false;
+var image = null;
+var imageURL = null;
 
 function Board(props) {
+
+  if(!loaded){
+    loadBackground();
+    loadCards();
+    loaded = true;
+  }
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      saveCards();
+    }, 10000);
+    return () => clearInterval(interval);
+  }, []);
 
   //State als Hook
   const [, setImage] = useState(null)
@@ -35,6 +50,22 @@ function Board(props) {
       isOver: !!monitor.isOver()
     })
   })
+
+  async function loadBackground(){
+    const data = new FormData();
+    const reader = new FileReader();
+    data.append('username', 'test');
+    data.append('filetype', 'background');
+
+    //await axios.get("http://localhost:8000/download_background", data,{headers:{responseType:'blob'}
+  await axios({url:'http://localhost:8000/download_background',method:'GET',responseType:'blob'})
+  .then(response=>{image=new Blob([response],{type:'image/png'});
+    console.log(image);
+      imageURL = URL.createObjectURL(image);
+      document.getElementById("board").style.background=imageURL;
+    });
+    console.log(image.className);
+  }
 
  
   const onImageChange = event => {
@@ -67,15 +98,19 @@ function Board(props) {
   //Karten in eine json und an den Server senden -> cards.json
   const saveCards=()=>{
     const data = new FormData();
-    const blob = new Blob([serialize(props.cardList)],{type:"text/plain"});
+    const blob = new Blob([JSON.stringify(props.cardList)],{type:"text/plain"});
     data.append('username', 'test');
     data.append('filetype', 'cards');
     data.append('file', blob);
-    console.log(serialize(props.cardList));
     axios.post("http://localhost:8000/upload_cards", data, { // receive two parameter endpoint url ,form data 
-    });
-  }
-
+  }).then(function(response){
+    console.log(response);
+  }).catch(function(error){
+    console.log(error);
+  });
+  console.log('Interval triggered');
+  };
+  
   //Lädt die Karten vom Server runter 
   async function loadCards(){
     const data = new FormData();
@@ -88,12 +123,13 @@ function Board(props) {
     //Karten liegen als res.data in einem json vor
     console.log(res.data);
     for(var i=0;i<res.data.length;i++ ){
+      //aus den Daten wieder Karten erzeugen
       props.createCard(res.data[i].text, res.data[i].color, res.data[i].heading, res.data[i].onBoard, res.data[i].left, res.data[i].top);
     }
   }
 
-  return <div ref={drop}
-    style={{ background: `url('${process.env.PUBLIC_URL}/test/background.png')`, width: '100%', height: '100%', backgroundSize: 'contain', backgroundRepeat: 'no-repeat'}}>
+  return <div id="board" ref={drop}
+    style={{ background: `url(http://localhost:8000/download_background)`, width: '100%', height: '100%', backgroundSize: 'contain', backgroundRepeat: 'no-repeat'}}>
     <label for="ImageUpload" className="ImageInput"></label>
     <input id="ImageUpload" type="file" name="myImage" onChange={onImageChange} />
     <a href="#" onClick={saveCards}>Save Cards</a>

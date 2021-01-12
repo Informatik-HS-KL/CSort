@@ -16,12 +16,16 @@ class App extends Component {
       ],
       lastIndex: 0,
     }
+
     this.setLocation = this.setLocation.bind(this)
     this.createCard = this.createCard.bind(this)
     this.createCardOnBoard = this.createCardOnBoard.bind(this)
     this.setCardOnBoard = this.setCardOnBoard.bind(this)
   }
 
+  saveVariables(){
+    
+  }
 
   //Funktion zum Erstellen von Karten/Uberschriften im State
   createCard(text, color, heading) {
