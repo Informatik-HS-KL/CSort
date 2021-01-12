@@ -1,32 +1,42 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect  } from 'react';
 import { ItemTypes } from '../components/item'
 import { useDrop } from 'react-dnd'
 import axios from 'axios';
-import { useDrag } from 'react-dnd';
 import { Box } from './Box.js'
-import {serialize, deserialize} from 'react-serialize'
+import { serialize, deserialize } from 'react-serialize'
 import App from './App'
 
 
-function Board(props) {
+function Board(props)   {
+
+  let topOffset = 0;
+  let leftOffset = 0;
+  let delta = 0;
 
   //State als Hook
   const [, setImage] = useState(null)
 
-  //Funktion zum verschieben der Karte(ruft Funktion in App auf um State zu ändern)
+  //Funktion zum verschieben der Karte(ruft eine Funktion in App.js auf um State zu ändern)
   const moveCard = (id, left, top, onBoard) => {
     onBoard ? props.setLocation(id, left, top) : props.setLocation(id, 0, 0)
-    }
+  }
 
   //Drag and Drop Hook -> Drop
   const [{ isOver }, drop] = useDrop({
     accept: ItemTypes.CARD,
     drop: (item, monitor) => {
       //rechnet left und top aus für location der Karte/Uberschrift
-      const delta = monitor.getDifferenceFromInitialOffset();
-      const left = Math.round(item.left + delta.x);
-      const top = Math.round(item.top + delta.y);
-      moveCard(item.id, left, top, item.onBoard);
+      delta = monitor.getSourceClientOffset();
+      if(item.onBoard){
+        delta = monitor.getDifferenceFromInitialOffset();
+        leftOffset = 0
+        topOffset = 0
+      }
+      //const left = Math.round(item.left + delta.x - leftOffset);
+      //const top = Math.round(item.top + delta.y - topOffset);
+      const left = item.left + delta.x - leftOffset;
+      const top = item.top + delta.y - topOffset;
+      moveCard(item.id, left, top, true);
       //setzt onBoard true -> Karte verschwindet aus CardList
       props.setCardOnBoard(item.id, true);
       return undefined;
@@ -36,7 +46,6 @@ function Board(props) {
     })
   })
 
- 
   const onImageChange = event => {
     if (event.target.files && event.target.files[0]) {
       let img = event.target.files[0];
@@ -58,16 +67,16 @@ function Board(props) {
 
   //liste von Karten die onBoard==true
   const listCards = props.cardList.map(item => (item.onBoard === true ?
-    <Box key={item.id} id={item.id} left={item.left} top={item.top} color={item.color} heading={item.heading} onBoard={item.onBoard}>
+    <Box style={{ position: "sticky" }} key={item.id} id={item.id} left={item.left} top={item.top} color={item.color} heading={item.heading} onBoard={item.onBoard}>
       {item.text}
     </Box>
     : <div></div>
   ))
 
   //Karten in eine json und an den Server senden -> cards.json
-  const saveCards=()=>{
+  const saveCards = () => {
     const data = new FormData();
-    const blob = new Blob([serialize(props.cardList)],{type:"text/plain"});
+    const blob = new Blob([serialize(props.cardList)], { type: "text/plain" });
     data.append('username', 'test');
     data.append('filetype', 'cards');
     data.append('file', blob);
@@ -77,28 +86,38 @@ function Board(props) {
   }
 
   //Lädt die Karten vom Server runter 
-  async function loadCards(){
+  async function loadCards() {
     const data = new FormData();
     const reader = new FileReader();
     data.append('username', 'test');
     data.append('filetype', 'cards');
 
-    const res = await axios.get("http://localhost:8000/download_cards", data,{headers:{'Accept':'text/plain'},'responseType':'text'
+    const res = await axios.get("http://localhost:8000/download_cards", data, {
+      headers: { 'Accept': 'text/plain' }, 'responseType': 'text'
     });
     //Karten liegen als res.data in einem json vor
     console.log(res.data);
-    for(var i=0;i<res.data.length;i++ ){
+    for (var i = 0; i < res.data.length; i++) {
       props.createCard(res.data[i].text, res.data[i].color, res.data[i].heading, res.data[i].onBoard, res.data[i].left, res.data[i].top);
     }
   }
 
-  return <div ref={drop}
-    style={{ background: `url('${process.env.PUBLIC_URL}/test/background.png')`, width: '100%', height: '100%', backgroundSize: 'contain', backgroundRepeat: 'no-repeat'}}>
-    <label for="ImageUpload" className="ImageInput"></label>
-    <input id="ImageUpload" type="file" name="myImage" onChange={onImageChange} />
-    <a href="#" onClick={saveCards}>Save Cards</a>
-    <a href="#" onClick={loadCards}>Load Cards</a>
-    {listCards}{/* Karten/Uberschriften */}
+  return <div
+  ref={drop}
+  style={{ width: '100%', height: '100%'}}>
+  <div
+    ref={el => {
+      if (!el) return;
+      topOffset = el.getBoundingClientRect().top; 
+      leftOffset = el.getBoundingClientRect().left;
+    }}
+      style={{ background: `url('${process.env.PUBLIC_URL}/test/background.png')`, width: '100%', height: '100%', backgroundSize: 'contain', backgroundRepeat: 'no-repeat' }}>
+      <label for="ImageUpload" className="ImageInput"></label>
+      <input id="ImageUpload" type="file" name="myImage" onChange={onImageChange} />
+      <a href="#" onClick={saveCards}>Save Cards</a>
+      <a href="#" onClick={loadCards}>Load Cards</a>
+      {listCards}{/* Karten/Uberschriften */}
+    </div>
   </div>
 }
 

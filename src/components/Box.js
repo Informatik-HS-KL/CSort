@@ -3,6 +3,9 @@ import { useDrag } from 'react-dnd';
 import { ItemTypes } from './item'
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
+import { useDrop } from 'react-dnd'
+import axios from 'axios';
+
 
 //React Komponente als ArrowFunction
 export const Box = ({ id, left, top, children, color, heading, onBoard }) => {
@@ -23,10 +26,12 @@ export const Box = ({ id, left, top, children, color, heading, onBoard }) => {
   let newPosition=""
   onBoard ? newPosition="absolute" : newPosition = "relative"
 
+
   return (
-    <div ref={drag} style={{ display: "inline-block", position: newPosition, width: newWidth, margin: "1% 5% 1% 5%", left, top }}>
+    <div id = "1" ref={drag} style={{ display: "inline-block", position: newPosition, width: newWidth, margin: "1% 5% 1% 5%", left: left, top: top }}>
+       
       { heading === true ? <div style={{ marginTop: "25%" }}></div> : <div style={{ marginTop: "100%" }}></div>}
-      <Card
+      <Card 
         style={{
           position: "absolute",
           top: "0",
@@ -51,6 +56,5 @@ export const Box = ({ id, left, top, children, color, heading, onBoard }) => {
         </CardContent>
       </Card>
     </div >
-
   )
 }
