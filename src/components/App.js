@@ -23,10 +23,6 @@ class App extends Component {
     this.setCardOnBoard = this.setCardOnBoard.bind(this)
   }
 
-  saveVariables(){
-    
-  }
-
   //Funktion zum Erstellen von Karten/Uberschriften im State
   createCard(text, color, heading) {
     this.setState(prevState => ({

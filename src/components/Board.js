@@ -5,6 +5,7 @@ import axios from 'axios';
 import { useDrag } from 'react-dnd';
 import { Box } from './Box.js'
 import { formatMs } from '@material-ui/core';
+import SelectInput from '@material-ui/core/Select/SelectInput';
 
 var loaded = false;
 var image = null;
@@ -18,19 +19,20 @@ function Board(props) {
     loaded = true;
   }
 
-  useEffect(() => {
+  /*useEffect(() => {
     const interval = setInterval(() => {
       saveCards();
     }, 10000);
     return () => clearInterval(interval);
-  }, []);
+  }, []);*/
 
   //State als Hook
   const [, setImage] = useState(null)
 
   //Funktion zum verschieben der Karte(ruft Funktion in App auf um State zu ändern)
   const moveCard = (id, left, top, onBoard) => {
-    onBoard ? props.setLocation(id, left, top) : props.setLocation(id, 0, 0)
+    onBoard ? props.setLocation(id, left, top) : props.setLocation(id, 0, 0);
+    saveCards();
     }
 
   //Drag and Drop Hook -> Drop
@@ -41,9 +43,9 @@ function Board(props) {
       const delta = monitor.getDifferenceFromInitialOffset();
       const left = Math.round(item.left + delta.x);
       const top = Math.round(item.top + delta.y);
-      moveCard(item.id, left, top, item.onBoard);
       //setzt onBoard true -> Karte verschwindet aus CardList
       props.setCardOnBoard(item.id, true);
+      moveCard(item.id, left, top, item.onBoard);
       return undefined;
     },
     collect: (monitor) => ({
@@ -96,9 +98,11 @@ function Board(props) {
   ))
 
   //Karten in eine json und an den Server senden -> cards.json
-  const saveCards=()=>{
-    const data = new FormData();
-    const blob = new Blob([JSON.stringify(props.cardList)],{type:"text/plain"});
+
+  function saveCards(){
+    var data = new FormData();
+    var blob = new Blob([JSON.stringify(props.cardList)],{type:"text/plain"});
+    console.log("savedCards" + JSON.stringify(props.cardList));
     data.append('username', 'test');
     data.append('filetype', 'cards');
     data.append('file', blob);
@@ -109,10 +113,11 @@ function Board(props) {
     console.log(error);
   });
   console.log('Interval triggered');
+  blob = null;
   };
   
   //Lädt die Karten vom Server runter 
-  async function loadCards(){
+ async function loadCards(){
     const data = new FormData();
     const reader = new FileReader();
     data.append('username', 'test');
