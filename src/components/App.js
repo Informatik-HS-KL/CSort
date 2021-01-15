@@ -7,6 +7,7 @@ import Board from './Board';
 import Legend from './Legend';
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from 'react-dnd-html5-backend'
+import axios from 'axios';
 
 class App extends Component {
   constructor() {
@@ -21,7 +22,27 @@ class App extends Component {
     this.createCard = this.createCard.bind(this)
     this.createCardOnBoard = this.createCardOnBoard.bind(this)
     this.setCardOnBoard = this.setCardOnBoard.bind(this)
+    this.saveCards = this.saveCards.bind(this)
   }
+
+      //Karten in eine json und an den Server senden -> cards.json
+
+      saveCards(){
+        var data = new FormData();
+        var blob = new Blob([JSON.stringify(this.state.cards)],{type:"text/plain"});
+        console.log("savedCards" + JSON.stringify(this.state.cards));
+        data.append('username', 'test');
+        data.append('filetype', 'cards');
+        data.append('file', blob);
+        axios.post("http://localhost:8000/upload_cards", data, { // receive two parameter endpoint url ,form data 
+      }).then(function(response){
+        console.log(response);
+      }).catch(function(error){
+        console.log(error);
+      });
+      console.log('Interval triggered');
+      blob = null;
+      };
 
   //Funktion zum Erstellen von Karten/Uberschriften im State
   createCard(text, color, heading) {
@@ -39,6 +60,7 @@ class App extends Component {
       }],
       lastIndex: this.state.lastIndex + 1,
     }))
+    this.saveCards();
   }
 
   //onBoard, left und top um die Karten wieder vom Server zu laden
@@ -58,7 +80,7 @@ class App extends Component {
       lastIndex: this.state.lastIndex + 1,
     }))
   }
-
+    
   //Funktion zum Ändern von onBoard im State
   //onBoard ist dazu da um nachzuverfolgen ob eine Karte noch in der Liste ist oder auf dem Board
   setCardOnBoard(id, value) {
@@ -78,6 +100,7 @@ class App extends Component {
     this.setState({
       cards: newArray,
     });
+    this.saveCards();
   }
 
   render() {

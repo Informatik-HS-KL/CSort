@@ -32,7 +32,6 @@ function Board(props) {
   //Funktion zum verschieben der Karte(ruft Funktion in App auf um State zu ändern)
   const moveCard = (id, left, top, onBoard) => {
     onBoard ? props.setLocation(id, left, top) : props.setLocation(id, 0, 0);
-    saveCards();
     }
 
   //Drag and Drop Hook -> Drop
@@ -137,8 +136,6 @@ function Board(props) {
     style={{ background: `url(http://localhost:8000/download_background)`, width: '100%', height: '100%', backgroundSize: 'contain', backgroundRepeat: 'no-repeat'}}>
     <label for="ImageUpload" className="ImageInput"></label>
     <input id="ImageUpload" type="file" name="myImage" onChange={onImageChange} />
-    <a href="#" onClick={saveCards}>Save Cards</a>
-    <a href="#" onClick={loadCards}>Load Cards</a>
     {listCards}{/* Karten/Uberschriften */}
   </div>
 }
