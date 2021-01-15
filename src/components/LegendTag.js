@@ -4,10 +4,10 @@ class LegendTag extends Component {
 
     render() {
         return( 
-            <div className="Shadow_Element">  
-                <span className={'dot dot-' + this.props.color}></span>
+            <div className={"Shadow_Element textBox-" +this.props.theme}>  
+                <span className={'dotL dot-' + this.props.color}></span>
                 <input
-                    className="legend_input" 
+                    className={"legend_input textBox-" + this.props.theme} 
                     name="text" 
                     placeholder = "Legendenattribut"
                     type = "text"                                 

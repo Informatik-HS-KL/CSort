@@ -41,7 +41,7 @@ function CardList(props) {
         <div ref={drop} style={{ width: "100%", height: "100%" }}>
              <h4 style={{textAlign:"center"}}>Ungeordnet</h4>
             {listHeadings}{/* Uberschriften */}
-            <hr style={{ clear: "left", width: "90%", margin: "5%" }} />{/* Trennlinie */}
+            <hr style={{border: "1px solid #c4c4c4", clear: "left", width: "90%", marginBottom: "1%", marginTop: "1%"}} />{/* Trennlinie */}
             <div  >
                 {listCards}{/* Karten */}
             </div>
