@@ -10,7 +10,13 @@ Farben:
 #C4C4C4 mittelgrau
 #575656 dunkelgrau
 #282828 fast schwarz für Schrift
-*/
+
+Farben für Darkmode
+ #33333f Hintergrund Karten erstellen
+ #1f1f2e Hintergrund Header und Footer
+ #575665 Buttons
+ #282828 Eingabefelder
+ */
 
 body {
   font-weight: 200;

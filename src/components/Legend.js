@@ -2,17 +2,17 @@ import React, {Component} from 'react';
 import LegendTag from './LegendTag';
 import GridLayout from 'react-grid-layout';
 import Modal from 'react-modal' ;
-import Button from '@material-ui/core/Button';
 import 'reactjs-popup/dist/index.css';
 import Tooltip from '@material-ui/core/Tooltip';
+import { withStyles } from '@material-ui/core/styles';
 
 Modal.setAppElement('#root')
 class Legend extends Component {
     constructor(props){
         super(props)
         this.state = {
-             modalOpen: false,
-             legendList: [
+            modalOpen: false,
+            legendList: [
                 {color: "green", text: ""},
                 {color: "yellow", text: ""},
                 {color: "red", text: ""},
@@ -57,15 +57,14 @@ class Legend extends Component {
         this.setState({ helperList: newLegendTags });
       };
           
-    render() {        
-  
-        
+    render() {       
         const layout = [
             { i: 'a', x: 0, y: 0, w: 1, h: 1, static: true },
             { i: 'b', x: 1, y: 0, w: 1, h: 1, static: true },
             { i: 'c', x: 0.5, y: 1, w: 1, h: 0.33, static: true }
            ];
 
+        /* Auslesen des StateArrays der Legendenattribute*/
         const legendTags = this.state.legendList.map(function(item) {
             for (var i = 0; i <= 6; i++){
                 if(item.text !== ""){
@@ -79,20 +78,34 @@ class Legend extends Component {
             }
         })
 
+        /* Style und Inhalt des Infofelds im Legendenmodal */
         const tooltipContent = "Ordnen Sie hier den Farben eine Bedeutung zu"
+        const LightTooltip = withStyles((theme) => ({
+            tooltip: {   
+                backgroundColor: theme.palette.common.white,           
+                color: 'rgba(0, 0, 0, 0.87)',
+                boxShadow: theme.shadows[1],
+                fontSize: "1.5em",
+                width: 200,
+            },
+            arrow: {
+                color: theme.palette.common.white,
+            }
+        }))(Tooltip);
         
         return ( 
-            <div className ="legend" style={{ padding: 10}}>
+            <div className ={"legend legend-" + this.props.theme} style={{ padding: 10}}>
                 {/* Inhalt der Legende */}
-                <h4>Legende:</h4>
+                Legende:
 
                 {/* Ausgabe der Legendenelemente */}
                 {legendTags}
 
                 {/* Button zum Öffnen des Modals */}
                 <button className="LegendButton" onClick={()=> this.setState({modalOpen: true})}></button>
+
                 {/* Modal */}
-                <Modal 
+                <Modal className ={"theme-" + this.props.theme}
                     isOpen = {this.state.modalOpen} 
                     onRequestClose = {()=>this.setState({modalOpen: false})}
                     style = {{
@@ -102,24 +115,23 @@ class Legend extends Component {
                             top: window.innerHeight * 0.15,
                             left: window.innerWidth * 0.25,
                             right: window.innerWidth * 0.25,
-                            bottom: window.innerHeight * 0.15,
-                            border: '1px solid #ccc',                            
+                            bottom: window.innerHeight * 0.15,                                                       
                             overflow: 'auto',
                             WebkitOverflowScrolling: 'touch',
                             borderRadius: '4px',
                             outline: 'none',
                             padding: 0,                            
-                            backgroundColor: '#ECECEC'
+                            
                           }             
                     }}
                 >
 
                     {/* Modal-Inhalt */}
-                    <div style={{backgroundColor: "#C4C4C4", height: "4em", paddingTop:"0.5em"}}>
+                    <div className={"legend-" + this.props.theme} style={{height: "4em", paddingTop:"0.5em"}}>
                         <h2 style={{display: "inline-block"}}>Farbcodierung hinzufügen </h2>
-                        <Tooltip title={tooltipContent} placement="right" arrow>
-                            <span className= "LegendInfo" style={{position:"absolute", right: "1em", top:"1em"}}></span>
-                        </Tooltip>
+                        <LightTooltip className = {"theme-" + this.props.theme} title={tooltipContent} placement="right" arrow>
+                            <span className= {"LegendInfo theme-" +this.props.theme} style={{position:"absolute", right: "1em", top:"1em"}}></span>
+                        </LightTooltip>
                     </div>                      
 
                     {/* Legendenfelder */}              
@@ -127,7 +139,7 @@ class Legend extends Component {
                         <div key="a">
                             {/*grün*/} 
                             <LegendTag 
-                                color = {"green"} 
+                                color = {"green"} theme={this.props.theme}
                                 handleLegendTagChange = {this.handleLegendTagChange} 
                                 valueAtIndex = {this.state.helperList[0].tag} 
                                 arrayIndex = {0} 
@@ -135,7 +147,7 @@ class Legend extends Component {
 
                             {/*gelb*/}
                             <LegendTag 
-                                color = {"yellow"} 
+                                color = {"yellow"} theme={this.props.theme}
                                 handleLegendTagChange = {this.handleLegendTagChange} 
                                 valueAtIndex = {this.state.helperList[1].tag} 
                                 arrayIndex = {1} 
@@ -143,7 +155,7 @@ class Legend extends Component {
 
                             {/*rot*/}
                             <LegendTag 
-                                color = {"red"} 
+                                color = {"red"} theme={this.props.theme}
                                 handleLegendTagChange = {this.handleLegendTagChange} 
                                 valueAtIndex = {this.state.helperList[2].tag} 
                                 arrayIndex = {2} 
@@ -153,7 +165,7 @@ class Legend extends Component {
                         <div key="b"> 
                             {/*lila*/}  
                                 <LegendTag 
-                                color = {"purple"} 
+                                color = {"purple"} theme={this.props.theme}
                                 handleLegendTagChange = {this.handleLegendTagChange} 
                                 valueAtIndex = {this.state.helperList[3].tag} 
                                 arrayIndex = {3} 
@@ -161,7 +173,7 @@ class Legend extends Component {
 
                             {/*blau*/}  
                             <LegendTag 
-                                color = {"blue"} 
+                                color = {"blue"} theme={this.props.theme}
                                 handleLegendTagChange = {this.handleLegendTagChange} 
                                 valueAtIndex = {this.state.helperList[4].tag} 
                                 arrayIndex = {4} 
@@ -169,7 +181,7 @@ class Legend extends Component {
 
                             {/*hellblau*/}  
                             <LegendTag 
-                                color = {"lightblue"} 
+                                color = {"lightblue"} theme={this.props.theme}
                                 handleLegendTagChange = {this.handleLegendTagChange} 
                                 valueAtIndex = {this.state.helperList[5].tag} 
                                 arrayIndex = {5} 
@@ -179,7 +191,7 @@ class Legend extends Component {
                         <div key="c">                            
                             {/*weiß*/}
                             <LegendTag 
-                                color = {"white"} 
+                                color = {"white"} theme={this.props.theme}
                                 handleLegendTagChange = {this.handleLegendTagChange} 
                                 valueAtIndex = {this.state.helperList[6].tag} 
                                 arrayIndex = {6} 
@@ -188,14 +200,14 @@ class Legend extends Component {
                     </GridLayout>
 
                     {/* Buttons */}
-                    <Button variant="contained" style={{ margin: '15px' }} onClick = {()=> {
+                    <button className={"button-" + this.props.theme} style={{ margin: '15px' }} onClick = {()=> {
                         this.setState({modalOpen: false});
                         this.abortLegendChanges()}}> Abbrechen 
-                    </Button>
-                    <Button variant="contained" color="primary" style={{ margin: '15px' }} onClick = {()=> {
+                    </button>
+                    <button className={"button-" + this.props.theme} style={{ margin: '15px' }} onClick = {()=> {
                         this.setState({modalOpen: false});
                         this.commitLegendChanges()}}> Übernehmen
-                    </Button>
+                    </button>
                 </Modal>                
             </div>
         )
