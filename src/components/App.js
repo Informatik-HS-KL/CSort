@@ -10,6 +10,7 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 import { Icon } from "@material-ui/core";
 import Switch from '@material-ui/core/Switch';
 import { DefaultContext } from 'react-icons';
+import axios from 'axios';
 
 class App extends Component {
   constructor() {
@@ -26,6 +27,7 @@ class App extends Component {
     this.setCardOnBoard = this.setCardOnBoard.bind(this)
     this.saveCards = this.saveCards.bind(this)
     this.toggleDarkMode = this.toggleDarkMode.bind(this)
+    this.createCardOnBoard = this.createCardOnBoard.bind(this)
   }
 
       //Karten in eine json und an den Server senden -> cards.json
@@ -158,7 +160,7 @@ class App extends Component {
               <CardList cardList={this.state.cards} setCardOnBoard={this.setCardOnBoard} setLocation={this.setLocation} />
             </div>
             <div className = {"board-" + theme} key="c" style={{ display: "flex" }}> {/* Board */}
-              <Board theme ={theme} cardList={this.state.cards} setCardOnBoard={this.setCardOnBoard} setLocation={this.setLocation} />
+              <Board theme ={theme} cardList={this.state.cards} setCardOnBoard={this.setCardOnBoard} setLocation={this.setLocation} createCard={this.createCardOnBoard}/>
             </div>
           </GridLayout>
         </DndProvider>

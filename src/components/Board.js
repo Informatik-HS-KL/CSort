@@ -14,7 +14,6 @@ var imageURL = null;
 function Board(props) {
 
   if(!loaded){
-    loadBackground();
     loadCards();
     loaded = true;
   }
@@ -51,23 +50,6 @@ function Board(props) {
       isOver: !!monitor.isOver()
     })
   })
-
-  async function loadBackground(){
-    const data = new FormData();
-    const reader = new FileReader();
-    data.append('username', 'test');
-    data.append('filetype', 'background');
-
-    //await axios.get("http://localhost:8000/download_background", data,{headers:{responseType:'blob'}
-  await axios({url:'http://localhost:8000/download_background',method:'GET',responseType:'blob'})
-  .then(response=>{image=new Blob([response],{type:'image/png'});
-    console.log(image);
-      imageURL = URL.createObjectURL(image);
-      document.getElementById("board").style.background=imageURL;
-    });
-    console.log(image.className);
-  }
-
  
   const onImageChange = event => {
     if (event.target.files && event.target.files[0]) {
@@ -95,25 +77,6 @@ function Board(props) {
     </Box>
     : <div></div>
   ))
-
-  //Karten in eine json und an den Server senden -> cards.json
-
-  function saveCards(){
-    var data = new FormData();
-    var blob = new Blob([JSON.stringify(props.cardList)],{type:"text/plain"});
-    console.log("savedCards" + JSON.stringify(props.cardList));
-    data.append('username', 'test');
-    data.append('filetype', 'cards');
-    data.append('file', blob);
-    axios.post("http://localhost:8000/upload_cards", data, { // receive two parameter endpoint url ,form data 
-  }).then(function(response){
-    console.log(response);
-  }).catch(function(error){
-    console.log(error);
-  });
-  console.log('Interval triggered');
-  blob = null;
-  };
   
   //Lädt die Karten vom Server runter 
  async function loadCards(){
