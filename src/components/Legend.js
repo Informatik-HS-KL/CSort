@@ -127,10 +127,10 @@ class Legend extends Component {
                 >
 
                     {/* Modal-Inhalt */}
-                    <div className={"legend-" + this.props.theme} style={{height: "4em", paddingTop:"0.5em"}}>
+                    <div className={"legend-" + this.props.theme} style={{height: "3.5em", paddingTop:"0.5em"}}>
                         <h2 style={{display: "inline-block"}}>Farbcodierung hinzufügen </h2>
                         <LightTooltip className = {"theme-" + this.props.theme} title={tooltipContent} placement="right" arrow>
-                            <span className= {"LegendInfo theme-" +this.props.theme} style={{position:"absolute", right: "1em", top:"1em"}}></span>
+                            <span className= {"LegendInfo theme-" +this.props.theme} style={{position:"absolute", right: "1em", top:"0.5em"}}></span>
                         </LightTooltip>
                     </div>                      
 

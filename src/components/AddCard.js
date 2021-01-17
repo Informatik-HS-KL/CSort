@@ -11,6 +11,7 @@ class AddCard extends Component {
             text: "",
             radioValue: ".dot-white",
             heading: false,
+            maxChar: 0,
         }
         this.handleRadio = this.handleRadio.bind(this)
     }
@@ -27,7 +28,7 @@ class AddCard extends Component {
             <button  
                 className={"button-" + this.props.theme}              
                 variant="contained"
-                onClick={() => this.setState({ modalOpen: true, heading: true })}
+                onClick={() => this.setState({ modalOpen: true, heading: true, maxChar: 20 })}
                 style={{width: '11em', height: '3.5em', textAlign: 'center', /*margin: '2% 25% 2.5% 25%'*/ marginTop:'2%'}}
             > 
             </button>
@@ -35,7 +36,7 @@ class AddCard extends Component {
             <button
                 className={"button-" + this.props.theme}
                 variant="contained"
-                onClick={() => this.setState({ modalOpen: true })}
+                onClick={() => this.setState({ modalOpen: true, maxChar: 50 })}
                 style={{width: '10em', height: '10em', textAlign: 'center', /*margin: '2% 25% 5% 25%'*/ marginTop:'2%'}}
             > 
             </button>
@@ -60,8 +61,9 @@ class AddCard extends Component {
 
                 }}>
                 {/* h2 je nach dem ob Karte oder Uberschrift */}
-                {this.state.heading ? <h2>Überschrift erstellen</h2> : <h2>Karte erstellen</h2>}
-                <br />
+                <div className={"legend-" + this.props.theme} style={{height: "3.5em", paddingTop:"0.5em"}}>
+                    {this.state.heading ? <h2>Überschrift erstellen</h2> : <h2>Karte erstellen</h2>}
+                </div>
                 <textarea
                     className={this.state.radioValue}
                     id="textarea"
@@ -70,6 +72,7 @@ class AddCard extends Component {
                     rows="4"
                     placeholder="Hier Text schreiben"
                     type="text"
+                    maxLength= {this.state.maxChar}
                     onChange={(t) => this.setState({ text: t.target.value })}
                 >
                 </textarea>
