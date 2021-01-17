@@ -56,6 +56,11 @@ app.get('/download_background', function(req, res){
   res.sendFile(file);
 });
 
+app.get('/download_legend', function(req, res){
+  const file = path.resolve(__dirname + '/../server/' + 'test' + '/' + 'legend.json');
+  res.sendFile(file);
+});
+
 // Karten hochladen
 app.post('/upload_cards',function(req, res) {
   console.log("hi");

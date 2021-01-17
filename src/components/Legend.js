@@ -5,9 +5,12 @@ import Modal from 'react-modal' ;
 import 'reactjs-popup/dist/index.css';
 import Tooltip from '@material-ui/core/Tooltip';
 import { withStyles } from '@material-ui/core/styles';
+import axios from 'axios';
 
 Modal.setAppElement('#root')
+
 class Legend extends Component {
+
     constructor(props){
         super(props)
         this.state = {
@@ -31,13 +34,47 @@ class Legend extends Component {
                 {tag: ""},
             ]            
         }
-    }   
+        this.loadLegend();
+    } 
+
+saveLegend(){
+    console.log("Legende geändert");
+        var data = new FormData();
+        var blob = new Blob([JSON.stringify(this.state.legendList)],{type:"text/plain"});
+        console.log("savedLegend" + JSON.stringify(this.state.legendList));
+        data.append('username', 'test');
+        data.append('filetype', 'legend');
+        data.append('file', blob);
+        axios.post("http://localhost:8000/upload_cards", data, { // receive two parameter endpoint url ,form data 
+      }).then(function(response){
+        console.log(response);
+      }).catch(function(error){
+        console.log(error);
+      });
+      console.log('Interval triggered');
+      blob = null;
+}
+
+    loadLegend = async()=>{
+        const data = new FormData();
+        const reader = new FileReader();
+        data.append('username', 'test');
+        data.append('filetype', 'legend');
+    
+        const res = await axios.get("http://localhost:8000/download_legend", data,{headers:{'Accept':'text/plain'},'responseType':'text'
+        });
+    
+        console.log(res.data[0].text);
+        console.log("hallöle");
+        this.setState({legendList:res.data})
+    }
 
     /* Funktion für OK Button*/
     commitLegendChanges() {
         for (var i=0; i <= 6; i++){
             this.state.legendList[i].text = this.state.helperList[i].tag;
         }
+        this.saveLegend();
     }
 
     /* Funktion für Abbrechen Button*/
