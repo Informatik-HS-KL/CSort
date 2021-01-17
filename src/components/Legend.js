@@ -139,7 +139,7 @@ saveLegend(){
                 {legendTags}
 
                 {/* Button zum Öffnen des Modals */}
-                <button className="LegendButton" onClick={()=> this.setState({modalOpen: true})}></button>
+                <button className={"LegendButton button-" + this.props.theme} onClick={()=> this.setState({modalOpen: true})}></button>
 
                 {/* Modal */}
                 <Modal className ={"theme-" + this.props.theme}

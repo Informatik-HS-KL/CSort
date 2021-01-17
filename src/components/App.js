@@ -158,7 +158,7 @@ class App extends Component {
               <AddCard theme={theme} createCard={this.createCard} />
             </div>
             <div className = {"theme-" + theme} key="b" > {/* Noch nicht platzierte Karten Block */}
-              <CardList cardList={this.state.cards} setCardOnBoard={this.setCardOnBoard} setLocation={this.setLocation} />
+              <CardList theme={theme} cardList={this.state.cards} setCardOnBoard={this.setCardOnBoard} setLocation={this.setLocation} />
             </div>
             <div className = {"board-" + theme} key="c" style={{ display: "flex" }}> {/* Board */}
               <Board theme ={theme} cardList={this.state.cards} setCardOnBoard={this.setCardOnBoard} setLocation={this.setLocation} createCard={this.createCardOnBoard}/>

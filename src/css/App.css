@@ -279,3 +279,11 @@ textarea{
 .board-dark{
   background-color: #222230;
 }
+
+.hr-light{
+  border-color: #575656;
+}
+
+.hr-dark{
+  border-color: #1f1f2e;
+}

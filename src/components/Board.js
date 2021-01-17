@@ -97,7 +97,7 @@ function Board(props) {
 
   return <div id="board" ref={drop}
     style={{ background: `url(http://localhost:8000/download_background)`, width: '100%', height: '100%', backgroundSize: 'contain', backgroundRepeat: 'no-repeat'}}>
-    <label for="ImageUpload" className="ImageInput"></label>
+    <label for="ImageUpload" className= {"ImageInput button-" + props.theme}></label>
     <input id="ImageUpload" type="file" name="myImage" onChange={onImageChange} />
     {listCards}{/* Karten/Uberschriften */}
   </div>
