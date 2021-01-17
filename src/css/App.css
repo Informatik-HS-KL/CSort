@@ -63,6 +63,7 @@ h4{
 /*hover-effekt Button*/
 .ImageInput:hover{
   background-color: #e6e6e6;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.45);
 }
 
 /*+ als Schrift auf dem Button*/
@@ -216,6 +217,13 @@ button{
   border-radius: 5px;
   border: none;
 }
+button:hover{
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.45);
+}
+
+textarea{
+  margin: 1em;
+}
 
 .Logo{
   height: 2em;
@@ -261,7 +269,7 @@ button{
 }
 
 .textBox-dark{
-  background-color: #282828;
+  background-color: #28282f;
   color: #f8f8f8;
 }
 
