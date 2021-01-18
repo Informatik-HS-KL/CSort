@@ -17,6 +17,7 @@ function Board(props) {
   let topOffset = 0.0;
   let leftOffset = 0.0;
   let delta = 0.0;
+
   if(!loaded){
     loadCards();
     loaded = true;
@@ -46,7 +47,6 @@ function Board(props) {
       moveCard(item.id, left, top, true);
       //setzt onBoard true -> Karte verschwindet aus CardList
       props.setCardOnBoard(item.id, true);
-      moveCard(item.id, left, top, item.onBoard);
       return undefined;
     },
     collect: (monitor) => ({

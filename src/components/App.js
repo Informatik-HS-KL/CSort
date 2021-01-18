@@ -191,16 +191,16 @@ class App extends Component {
         </header>
         <DndProvider backend={HTML5Backend}>
           <GridLayout className="layout" layout={layout} cols={12} rowHeight={window.innerHeight / 18} width={window.innerWidth} margin={[0, 0]}>
-            <div key="a" className = {"theme-" + theme} style={{ backgroundColor: "#ECECEC" }}> {/* Neue Überschrift/Karte Block */}
+            <div key="a" className = {"theme-" + theme} > {/* Neue Überschrift/Karte Block */}
               <AddCard theme ={theme} createCard={this.createCard} setModal={this.setModal} modalOpen={this.state.modalOpen} 
               changeCard={this.changeCard} changedCardOnBoard={this.state.changedCardOnBoard}  setChange={this.setChange} />
             </div>
-            <div key="b" className = {"theme-" + theme} style={{ backgroundColor: "#ECECEC" }}> {/* Noch nicht platzierte Karten Block */}
+            <div key="b" className = {"theme-" + theme} > {/* Noch nicht platzierte Karten Block */}
               <CardList theme ={theme} cardList={this.state.cards} setCardOnBoard={this.setCardOnBoard} setLocation={this.setLocation}
                 deleteCard={this.deleteCard} setDeleting={this.setDeleting} isDeleting={this.state.delete} setModal={this.setModal} 
                 changedCardOnBoard={this.state.changedCardOnBoard} changeCard={this.changeCard} setChange={this.setChange}/>
             </div>
-            <div key="c" className = {"theme-" + theme} style={{ backgroundColor: "#565656", display: "flex" }}> {/* Board */}
+            <div key="c" className = {"board-" + theme} style={{ display: "flex" }}> {/* Board */}
               <Board createCard={this.createCardOnBoard} theme ={theme} cardList={this.state.cards} setCardOnBoard={this.setCardOnBoard} setLocation={this.setLocation}
                 setDeleting={this.setDeleting} deleteCard={this.deleteCard} isDeleting={this.state.delete} setModal={this.setModal}
                 changedCardOnBoard={this.state.changedCardOnBoard} changeCard={this.changeCard} setChange={this.setChange}/>

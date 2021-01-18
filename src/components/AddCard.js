@@ -41,7 +41,7 @@ class AddCard extends Component {
             <button
                 className={"button-" + this.props.theme}
                 variant="contained"
-                onClick={() => this.setState({ heading: true, maxChar: 20 }), this.props.setModal(true)}
+                onClick={() => (this.setState({ heading: true, maxChar: 20 }), this.props.setModal(true))}
                 style={{ width: '11em', height: '3.5em', textAlign: 'center', /*margin: '2% 25% 2.5% 25%'*/ marginTop: '2%' }}
             >
             </button>
