@@ -5,13 +5,22 @@ import axios from 'axios';
 import { Box } from './Box.js'
 import { serialize, deserialize } from 'react-serialize'
 import App from './App'
+import { formatMs } from '@material-ui/core';
+import SelectInput from '@material-ui/core/Select/SelectInput';
 
+var loaded = false;
+var image = null;
+var imageURL = null;
 
 function Board(props) {
 
   let topOffset = 0.0;
   let leftOffset = 0.0;
   let delta = 0.0;
+  if(!loaded){
+    loadCards();
+    loaded = true;
+  }
 
   //State als Hook
   const [, setImage] = useState(null)
@@ -32,11 +41,12 @@ function Board(props) {
         leftOffset = 0.0
         topOffset = 0.0
       }
-      const left = item.left + delta.x - leftOffset ;
-      const top = item.top + delta.y - topOffset ;
+      const left = item.left + delta.x - leftOffset;
+      const top = item.top + delta.y - topOffset;
       moveCard(item.id, left, top, true);
       //setzt onBoard true -> Karte verschwindet aus CardList
       props.setCardOnBoard(item.id, true);
+      moveCard(item.id, left, top, item.onBoard);
       return undefined;
     },
     collect: (monitor) => ({
@@ -74,18 +84,6 @@ function Board(props) {
     : <div></div>
   ))
 
-  //Karten in eine json und an den Server senden -> cards.json
-  const saveCards = () => {
-    const data = new FormData();
-    const blob = new Blob([serialize(props.cardList)], { type: "text/plain" });
-    data.append('username', 'test');
-    data.append('filetype', 'cards');
-    data.append('file', blob);
-    console.log(serialize(props.cardList));
-    axios.post("http://localhost:8000/upload_cards", data, { // receive two parameter endpoint url ,form data 
-    });
-  }
-
   //Lädt die Karten vom Server runter 
   async function loadCards() {
     const data = new FormData();
@@ -99,18 +97,19 @@ function Board(props) {
     //Karten liegen als res.data in einem json vor
     console.log(res.data);
     for (var i = 0; i < res.data.length; i++) {
+      //aus den Daten wieder Karten erzeugen
       props.createCard(res.data[i].text, res.data[i].color, res.data[i].heading, res.data[i].onBoard, res.data[i].left, res.data[i].top);
     }
   }
 
   return <div
-    onClick = {(ev)=>{
-    if( ev.target.id !== '1'&&ev.target.id!=='2'){
+    onClick={(ev) => {
+      if (ev.target.id !== '1' && ev.target.id !== '2') {
         props.setDeleting(false)
       }
     }
-}    
-ref={drop}
+    }
+    ref={drop}
     style={{ width: '100%', height: '100%' }}>
     <div
       ref={el => {
@@ -118,14 +117,13 @@ ref={drop}
         topOffset = el.getBoundingClientRect().top;
         leftOffset = el.getBoundingClientRect().left;
       }}
-      style={{ background: `url('${process.env.PUBLIC_URL}/test/background.png')`, width: '100%', height: '100%', backgroundSize: 'contain', backgroundRepeat: 'no-repeat' }}>
-      <label for="ImageUpload" className="ImageInput"></label>
+      style={{ background: `url(http://localhost:8000/download_background)`, width: '100%', height: '100%', backgroundSize: 'contain', backgroundRepeat: 'no-repeat' }}>
+      <label for="ImageUpload" className={"ImageInput button-" + props.theme}></label>
       <input id="ImageUpload" type="file" name="myImage" onChange={onImageChange} />
-      <a href="#" onClick={saveCards}>Save Cards</a>
-      <a href="#" onClick={loadCards}>Load Cards</a>
       {listCards}{/* Karten/Uberschriften */}
     </div>
   </div>
+
 }
 
 export default Board;

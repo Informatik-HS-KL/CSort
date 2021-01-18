@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Button from '@material-ui/core/Button';
 import Modal from 'react-modal'
 
 Modal.setAppElement('#root')
@@ -11,6 +10,7 @@ class AddCard extends Component {
             text: "",
             radioValue: ".dot-white",
             heading: false,
+            maxChar: 0,
         }
         this.handleRadio = this.handleRadio.bind(this)
         this.handleButtonAccept = this.handleButtonAccept.bind(this)
@@ -31,28 +31,30 @@ class AddCard extends Component {
             this.state.text !== '' && this.props.changeCard(this.state.text, this.state.radioValue, this.state.heading);
         }
         this.props.setChange(-1)
-        this.setState({ text: "", heading: false });
+        this.setState({ text: "", heading: false, radioValue: ".dot-white" });
         this.props.setModal(false);
     }
 
     render() {
         return (<div style={{ textAlign: "center" }}>
             <h4>Überschriften</h4>
-            <Button
+            <button
+                className={"button-" + this.props.theme}
                 variant="contained"
-                onClick={() => (this.setState({ heading: true }), this.props.setModal(true))}
-                style={{ width: '12em', height: '4em', textAlign: 'center', /*margin: '2% 25% 2.5% 25%'*/ marginTop: '2%', backgroundColor: 'white' }}
+                onClick={() => this.setState({ heading: true, maxChar: 20 }), this.props.setModal(true)}
+                style={{ width: '11em', height: '3.5em', textAlign: 'center', /*margin: '2% 25% 2.5% 25%'*/ marginTop: '2%' }}
             >
-            </Button>
+            </button>
             <h4>Karten</h4>
-            <Button
+            <button
+                className={"button-" + this.props.theme}
                 variant="contained"
-                onClick={() => this.props.setModal(true)}
-                style={{ width: '10em', height: '10em', textAlign: 'center', /*margin: '2% 25% 5% 25%'*/ marginTop: '2%', backgroundColor: 'white' }}
+                onClick={() => (this.props.setModal(true), this.setState({ modalOpen: true, maxChar: 50 }))}
+                style={{ width: '10em', height: '10em', textAlign: 'center', /*margin: '2% 25% 5% 25%'*/ marginTop: '2%' }}
             >
-            </Button>
+            </button>
             {/* Modal (Fenster was sich im Vordergrund öffnet)*/}
-            <Modal
+            <Modal className={"theme-" + this.props.theme}
                 isOpen={this.props.modalOpen}
                 onRequestClose={() => (this.props.setModal(false), this.props.setChange(-1))}
                 style={{
@@ -61,6 +63,7 @@ class AddCard extends Component {
                         textAlign: 'center'
                     },
                     content: {
+                        position: 'absolute',
                         top: '50%',
                         left: '50%',
                         right: 'auto',
@@ -71,18 +74,21 @@ class AddCard extends Component {
 
                 }}>
                 {/* h2 je nach dem ob Karte oder Uberschrift */}
-                {this.state.heading ? <h2>Überschrift erstellen</h2> : <h2>Karte erstellen</h2>}
-                <br />
+                <div className={"legend-" + this.props.theme} style={{ height: "3.5em", paddingTop: "0.5em" }}>
+                    {this.state.heading ? <h2>Überschrift erstellen</h2> : <h2>Karte erstellen</h2>}
+                </div>
                 <textarea
+                    className={this.state.radioValue}
                     id="textarea"
                     name="text"
                     cols="35"
                     rows="4"
                     placeholder="Hier Text schreiben"
                     type="text"
+                    maxLength={this.state.maxChar}
                     onChange={(t) => this.setState({ text: t.target.value })}
                 >
-               { this.state.text}
+                    {this.state.text}
                 </textarea>
                 <br />
                 {/* Farbauswahl */}
@@ -97,22 +103,26 @@ class AddCard extends Component {
                 </div>
                 <br />
                 {/* Button zum Abbrechen */}
-                <Button
-                    onClick={() => (this.setState({ text: "", heading: false }), this.props.setModal(false), this.props.setChange(-1))}
+
+                <button
+                    className={"button-" + this.props.theme}
+                    onClick={() => (this.setState({ text: "", heading: false, radioValue: ".dot-white" }), this.props.setModal(false), this.props.setChange(-1))}
                     variant="contained"
                     style={{ margin: '15px' }}
                 > Abbrechen
-                </Button>
+                </button>
                 {/* Button Fertig */}
                 {/*eslint-disable */}
-                <Button onClick={(e) => this.handleButtonAccept(e)
-                }
+
+                <button
+                    className={"button-" + this.props.theme}
+                    onClick={(e) => this.handleButtonAccept(e)}
                     variant="contained"
                     style={{ margin: '15px' }}
                 > Fertig
-                </Button>
+                </button>
             </Modal>
-        </div >)
+        </div>)
     }
 }
 
