@@ -190,7 +190,7 @@ class App extends Component {
         </h4>
         </header>
         <DndProvider backend={HTML5Backend}>
-          <GridLayout className="layout" layout={layout} cols={12} rowHeight={window.innerHeight / 18} width={window.innerWidth} margin={[0, 0]}>
+          <GridLayout className="layout" layout={layout} cols={12} rowHeight={window.innerHeight / 18} width={wWidth * 0.99 - wWidth%2} margin={[0, 0]}>
             <div key="a" className = {"theme-" + theme} > {/* Neue Überschrift/Karte Block */}
               <AddCard theme ={theme} createCard={this.createCard} setModal={this.setModal} modalOpen={this.state.modalOpen} 
               changeCard={this.changeCard} changedCardOnBoard={this.state.changedCardOnBoard}  setChange={this.setChange} />
