@@ -7,13 +7,57 @@ import { useDrop } from 'react-dnd'
 import axios from 'axios';
 
 
-//React Komponente als ArrowFunction
-export const Box = ({ id, left, top, children, color, heading, onBoard }) => {
+
+//React Komponente als Function
+export function Box(props) {
+  let id = props.id
+  let left = props.left
+  let top = props.top
+  let onBoard = props.onBoard
+
+  let timer = 0;
+  let delay = 200;
+  let prevent = false;
+
+const doClickAction = () => {
+  clearTimeout(timer); {
+    console.log(' click');
+    props.setChange(props.id);
+    props.setModal(true);
+  }
+}
+
+const handleClick = () => {
+  clearTimeout(timer); {
+    timer = setTimeout(function () {
+      if (!prevent) {
+        doClickAction();
+      }
+      prevent = false;
+    }, delay);
+  }
+}
+const doDoubleClickAction = () => {
+  clearTimeout(timer); {
+    console.log('Double Click');
+    props.setDeleting(true)
+  }
+}
+const handleDoubleClick = () => {
+  clearTimeout(timer);
+  prevent = true;
+  doDoubleClickAction();
+}
+
+
 
   //Drag and Drop Hook -> Drag
   const [{ isDragging }, drag] = useDrag({
     //item wird an die Drops weitergereicht
-    item: { id, left, top, onBoard, type: ItemTypes.CARD },
+    item: {
+      id, left, top, onBoard
+      , type: ItemTypes.CARD
+    },
     collect: (monitor) => ({
       isDragging: !!monitor.isDragging(),
     }),
@@ -21,37 +65,63 @@ export const Box = ({ id, left, top, children, color, heading, onBoard }) => {
 
   //Weite abhängig von onBoard
   let newWidth = ""
-  onBoard ? newWidth = "10%" : newWidth = "39%"
-
-  let newPosition=""
-  onBoard ? newPosition="absolute" : newPosition = "relative"
-
+  props.onBoard ? newWidth = "12%" : newWidth = "38%"
+  props.heading && (newWidth ="19%")
+  let newPosition = ""
+  props.onBoard ? newPosition = "absolute" : newPosition = "relative"
 
   return (
-    <div id = "1" ref={drag} style={{ display: "inline-block", position: newPosition, width: newWidth, margin: "1% 5% 1% 5%", left: left, top: top }}>
-       
-      { heading === true ? <div style={{ marginTop: "25%" }}></div> : <div style={{ marginTop: "100%" }}></div>}
-      <Card 
+
+    <div
+      id="1" ref={drag} style={{ display: "inline-block", position: newPosition, width: newWidth, margin: "1% 5% 1% 5%", left: props.left, top: props.top }}
+      onClick={(ev)=>{
+        if( ev.target.id === '1'){
+          handleClick() 
+        }}}
+      onDoubleClick={handleDoubleClick}
+    >
+      { props.heading === true ? <div style={{ marginTop: "25%" }}></div> : <div style={{ marginTop: "100%" }}></div>}
+      <Card
+        test="test"
+        id="1"
         style={{
           position: "absolute",
           top: "0",
           bottom: "0",
           left: "0",
           right: "0",
-        }}>
+        }}
+
+      >
         <CardContent
-          className={color}
-          style={{ height: "100%", weight: "100%" }}>
-          <div style={{
-            height: "100%",
-            weight: "100%",
-            textAlign: "center",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center"
-          }}
+          className={props.color}
+          id="1"
+          test="test"
+          style={{ height: "100%", weight: "100%" }}
+        >
+          {props.isDeleting ?
+            <button className={props.color}
+              id="2"
+              onClick={() => props.deleteCard(props.id)}
+              style={{position:"absolute",
+              right:"10px"}}>
+              &times;
+          </button> : null}
+
+          <div
+            test="test"
+            id="1"
+            className="Box"
+            style={{
+              height: "100%",
+              weight: "100%",
+              textAlign: "center",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center"
+            }}
           >
-            {children}
+            {props.children}
           </div>
         </CardContent>
       </Card>
