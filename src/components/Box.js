@@ -100,11 +100,10 @@ const handleDoubleClick = () => {
           style={{ height: "100%", weight: "100%" }}
         >
           {props.isDeleting ?
-            <button className={props.color}
+            <button className={"button-" + props.theme}
               id="2"
               onClick={() => props.deleteCard(props.id)}
-              style={{position:"absolute",
-              right:"10px"}}>
+              style={{position:"absolute", right:"0.5em", top:"0.5em"}}>
               &times;
           </button> : null}
 

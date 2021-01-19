@@ -42,7 +42,7 @@ class AddCard extends Component {
                 className={"button-" + this.props.theme}
                 variant="contained"
                 onClick={() => (this.setState({ heading: true, maxChar: 20 }), this.props.setModal(true))}
-                style={{ width: '11em', height: '3.5em', textAlign: 'center', /*margin: '2% 25% 2.5% 25%'*/ marginTop: '2%' }}
+                style={{ width: '11em', height: '3.5em', textAlign: 'center', /*margin: '2% 25% 2.5% 25%'*/ }}
             >
             </button>
             <h4>Karten</h4>
@@ -50,7 +50,7 @@ class AddCard extends Component {
                 className={"button-" + this.props.theme}
                 variant="contained"
                 onClick={() => (this.props.setModal(true), this.setState({ modalOpen: true, maxChar: 50 }))}
-                style={{ width: '10em', height: '10em', textAlign: 'center', /*margin: '2% 25% 5% 25%'*/ marginTop: '2%' }}
+                style={{ width: '10em', height: '10em', textAlign: 'center', /*margin: '2% 25% 5% 25%'*/ }}
             >
             </button>
             {/* Modal (Fenster was sich im Vordergrund öffnet)*/}
@@ -69,7 +69,8 @@ class AddCard extends Component {
                         right: 'auto',
                         bottom: 'auto',
                         marginRight: '-50%',
-                        transform: 'translate(-50%, -50%)'
+                        transform: 'translate(-50%, -50%)',
+                        borderRadius: '4px'
                     }
 
                 }}>
