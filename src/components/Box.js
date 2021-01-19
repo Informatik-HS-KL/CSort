@@ -65,8 +65,8 @@ const handleDoubleClick = () => {
 
   //Weite abhängig von onBoard
   let newWidth = ""
-  props.onBoard ? newWidth = "12%" : newWidth = "38%"
-  props.heading && (newWidth ="19%")
+  props.onBoard ? newWidth = "10%" : newWidth = "38%"
+  props.heading && (newWidth ="17%")
   let newPosition = ""
   props.onBoard ? newPosition = "absolute" : newPosition = "relative"
 
