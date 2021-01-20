@@ -74,8 +74,8 @@ function Board(props) {
   }
 
   //liste von Karten die onBoard==true
-  let listCards = props.cardList.map(item => (item.onBoard === true ?
-    <Box style={{ position: "sticky" }} key={item.id} id={item.id} left={item.left} top={item.top} color={item.color} heading={item.heading} onBoard={item.onBoard}
+  const listCards = props.cardList.map(item => (item.onBoard === true ?
+    <Box style={{ position: "sticky" }} theme={props.theme} key={item.id} id={item.id} left={item.left} top={item.top} color={item.color} heading={item.heading} onBoard={item.onBoard}
       deleteCard={props.deleteCard} isDeleting={props.isDeleting} setDeleting={props.setDeleting} setModal={props.setModal}
       changedCardOnBoard={props.changedCardOnBoard} changeCard={props.changeCard} setChange={props.setChange}
     >
