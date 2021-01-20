@@ -98,7 +98,12 @@ function Board(props) {
     console.log("typeof res.data: "+typeof res.data)
     for (var i = 0; i < res.data.length; i++) {
       //aus den Daten wieder Karten erzeugen
-      props.createCard(res.data[i].text, res.data[i].color, res.data[i].heading, res.data[i].onBoard, res.data[i].left, res.data[i].top);
+      if(res.data[i].onBoard){
+        props.createCardOnBoard(res.data[i].text, res.data[i].color, res.data[i].heading, res.data[i].onBoard, res.data[i].left, res.data[i].top);
+      }
+      else{
+        props.createCard(res.data[i].text, res.data[i].color, res.data[i].heading);
+      }
     }
   }
 

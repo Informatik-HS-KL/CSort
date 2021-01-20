@@ -23,3 +23,4 @@ yarn-debug.log*
 yarn-error.log*
 public/test/
 server/test/cards.json
+server/test/background.png

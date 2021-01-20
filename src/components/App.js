@@ -133,8 +133,7 @@ class App extends Component {
     newArray[elementsIndex] = { ...newArray[elementsIndex], onBoard: value }
     this.setState({
       cards: newArray
-    },
-      this.saveCards)
+    })
 
   }
 
@@ -207,7 +206,7 @@ class App extends Component {
                 changedCardOnBoard={this.state.changedCardOnBoard} changeCard={this.changeCard} setChange={this.setChange} />
             </div>
             <div key="c" className={"board-" + theme} style={{ display: "flex" }}> {/* Board */}
-              <Board createCard={this.createCardOnBoard} theme={theme} cardList={this.state.cards} setCardOnBoard={this.setCardOnBoard} setLocation={this.setLocation}
+              <Board createCardOnBoard={this.createCardOnBoard} createCard={this.createCard} theme={theme} cardList={this.state.cards} setCardOnBoard={this.setCardOnBoard} setLocation={this.setLocation}
                 setDeleting={this.setDeleting} deleteCard={this.deleteCard} isDeleting={this.state.delete} setModal={this.setModal}
                 changedCardOnBoard={this.state.changedCardOnBoard} changeCard={this.changeCard} setChange={this.setChange} />
             </div>
