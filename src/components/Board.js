@@ -14,9 +14,9 @@ var imageURL = null;
 
 function Board(props) {
 
-  let topOffset = 0.0;
-  let leftOffset = 0.0;
-  let delta = 0.0;
+  let topOffset = 0;
+  let leftOffset = 0;
+  let delta = 0;
 
   if(!loaded){
     loadCards();
@@ -28,7 +28,7 @@ function Board(props) {
 
   //Funktion zum verschieben der Karte(ruft eine Funktion in App.js auf um State zu ändern)
   const moveCard = (id, left, top, onBoard) => {
-    onBoard ? props.setLocation(id, left, top) : props.setLocation(id, 0.0, 0.0)
+    onBoard ? props.setLocation(id, left, top) : props.setLocation(id, 0, 0)
   }
 
   //Drag and Drop Hook -> Drop
@@ -39,8 +39,8 @@ function Board(props) {
       delta = monitor.getSourceClientOffset();
       if (item.onBoard) {
         delta = monitor.getDifferenceFromInitialOffset();
-        leftOffset = 0.0
-        topOffset = 0.0
+        leftOffset = 0
+        topOffset = 0
       }
       const left = item.left + delta.x - leftOffset;
       const top = item.top + delta.y - topOffset;
@@ -74,7 +74,7 @@ function Board(props) {
   }
 
   //liste von Karten die onBoard==true
-  const listCards = props.cardList.map(item => (item.onBoard === true ?
+  let listCards = props.cardList.map(item => (item.onBoard === true ?
     <Box style={{ position: "sticky" }} key={item.id} id={item.id} left={item.left} top={item.top} color={item.color} heading={item.heading} onBoard={item.onBoard}
       deleteCard={props.deleteCard} isDeleting={props.isDeleting} setDeleting={props.setDeleting} setModal={props.setModal}
       changedCardOnBoard={props.changedCardOnBoard} changeCard={props.changeCard} setChange={props.setChange}
@@ -95,7 +95,7 @@ function Board(props) {
       headers: { 'Accept': 'text/plain' }, 'responseType': 'text'
     });
     //Karten liegen als res.data in einem json vor
-    console.log(res.data);
+    console.log("typeof res.data: "+typeof res.data)
     for (var i = 0; i < res.data.length; i++) {
       //aus den Daten wieder Karten erzeugen
       props.createCard(res.data[i].text, res.data[i].color, res.data[i].heading, res.data[i].onBoard, res.data[i].left, res.data[i].top);

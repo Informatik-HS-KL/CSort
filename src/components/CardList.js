@@ -21,7 +21,7 @@ function CardList(props) {
         })
     })
     //alle Karten die nicht auf dem Board sind
-    const listCards = props.cardList.map(item => (item.heading === false && item.onBoard === false ?
+    let listCards = props.cardList.map(item => (item.heading === false && item.onBoard === false ?
         <Box key={item.id} id={item.id} left={item.left} top={item.top} color={item.color} onBoard={item.onBoard} 
         deleteCard={props.deleteCard} setDeleting={props.setDeleting} isDeleting={props.isDeleting} setModal={props.setModal}
         changedCardOnBoard={props.changedCardOnBoard} changeCard={props.changeCard} setChange={props.setChange}
@@ -32,7 +32,7 @@ function CardList(props) {
     ))
 
     //alle Uberschriften die nicht auf dem Board sind
-    const listHeadings = props.cardList.map(item => (item.heading === true && item.onBoard === false ?
+    let listHeadings = props.cardList.map(item => (item.heading === true && item.onBoard === false ?
         <Box key={item.id} id={item.id} left={item.left} top={item.top} color={item.color} heading={item.heading} onBoard={item.onBoard} 
         deleteCard={props.deleteCard} setDeleting={props.setDeleting} isDeleting={props.isDeleting} setModal={props.setModal}
         changedCardOnBoard={props.changedCardOnBoard} changeCard={props.changeCard} setChange={props.setChange}

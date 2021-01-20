@@ -49,8 +49,6 @@ const handleDoubleClick = () => {
   doDoubleClickAction();
 }
 
-
-
   //Drag and Drop Hook -> Drag
   const [{ isDragging }, drag] = useDrag({
     //item wird an die Drops weitergereicht

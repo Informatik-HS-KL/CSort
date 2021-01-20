@@ -70,6 +70,8 @@ app.post('/upload_cards',function(req, res) {
          } else if (err) {
              return res.status(500).json(err);
          }
+         console.log(req.data)
+
     return res.status(200).send(req.file);
 
   })

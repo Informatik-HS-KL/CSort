@@ -87,8 +87,9 @@ class AddCard extends Component {
                     type="text"
                     maxLength={this.state.maxChar}
                     onChange={(t) => this.setState({ text: t.target.value })}
+                    value={this.state.text}
+
                 >
-                    {this.state.text}
                 </textarea>
                 <br />
                 {/* Farbauswahl */}
