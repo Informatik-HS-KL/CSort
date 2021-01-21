@@ -23,7 +23,7 @@ function CardList(props) {
     //alle Karten die nicht auf dem Board sind
     {/*eslint-disable */}
     let listCards = props.cardList.map(item => (item.heading === false && item.onBoard === false ?
-        <Box key={item.id} id={item.id} left={item.left} top={item.top} color={item.color} onBoard={item.onBoard} 
+        <Box key={item.id} theme={props.theme} id={item.id} left={item.left} top={item.top} color={item.color} onBoard={item.onBoard} 
         deleteCard={props.deleteCard} setDeleting={props.setDeleting} isDeleting={props.isDeleting} setModal={props.setModal}
         changedCardOnBoard={props.changedCardOnBoard} changeCard={props.changeCard} setChange={props.setChange} text={item.text}
         >
@@ -35,7 +35,7 @@ function CardList(props) {
     //alle Uberschriften die nicht auf dem Board sind
     {/*eslint-disable */}
     let listHeadings = props.cardList.map(item => (item.heading === true && item.onBoard === false ?
-        <Box key={item.id} id={item.id} left={item.left} top={item.top} color={item.color} heading={item.heading} onBoard={item.onBoard} 
+        <Box key={item.id} theme={props.theme} id={item.id} left={item.left} top={item.top} color={item.color} heading={item.heading} onBoard={item.onBoard} 
         deleteCard={props.deleteCard} setDeleting={props.setDeleting} isDeleting={props.isDeleting} setModal={props.setModal}
         changedCardOnBoard={props.changedCardOnBoard} changeCard={props.changeCard} setChange={props.setChange} text={item.text}
         >
