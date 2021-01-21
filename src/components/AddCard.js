@@ -10,13 +10,13 @@ class AddCard extends Component {
             text: "",
             radioValue: ".dot-white",
             heading: false,
-            maxChar: 0,
+            maxChar: 20,
         }
         this.handleRadio = this.handleRadio.bind(this)
         this.handleButtonAccept = this.handleButtonAccept.bind(this)
 
     }
-
+    
     //aktualisieren des radioValue/Farbe
     handleRadio = (event) => {
         //splitet className um zweiten dot value zu bekommen
@@ -28,7 +28,7 @@ class AddCard extends Component {
         if (this.props.changedCardOnBoard === -1) {
             this.state.text !== '' && this.props.createCard(this.state.text, this.state.radioValue, this.state.heading)
         } else {
-            this.state.text !== '' && this.props.changeCard(this.state.text, this.state.radioValue, this.state.heading);
+            this.state.text !== '' && this.props.changeCard(this.state.text, this.state.radioValue);
         }
         this.props.setChange(-1)
         this.setState({ text: "", heading: false, radioValue: ".dot-white" });
@@ -88,8 +88,7 @@ class AddCard extends Component {
                     type="text"
                     maxLength={this.state.maxChar}
                     onChange={(t) => this.setState({ text: t.target.value })}
-                    value={this.state.text}
-
+                    value={this.state.text!=""?this.state.text:this.props.changedCardText}
                 >
                 </textarea>
                 <br />
@@ -115,7 +114,6 @@ class AddCard extends Component {
                 </button>
                 {/* Button Fertig */}
                 {/*eslint-disable */}
-
                 <button
                     className={"button-" + this.props.theme}
                     onClick={(e) => this.handleButtonAccept(e)}

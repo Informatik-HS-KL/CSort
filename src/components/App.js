@@ -15,15 +15,15 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      cards: [
-      ],
+      cards: [],
       lastIndex: 0,
       delete: false,
       modalOpen: false,
       changedCardOnBoard: -1,
+      changedCardText: "",
+      changedCardColor: "",
       isDark: false,
     }
-
     this.setLocation = this.setLocation.bind(this)
     this.createCard = this.createCard.bind(this)
     this.setCardOnBoard = this.setCardOnBoard.bind(this)
@@ -35,6 +35,7 @@ class App extends Component {
     this.saveCards = this.saveCards.bind(this)
     this.toggleDarkMode = this.toggleDarkMode.bind(this)
     this.createCardOnBoard = this.createCardOnBoard.bind(this)
+    this.getChangedCard = this.getChangedCard.bind(this)
   }
 
       //Karten in eine json und an den Server senden -> cards.json
@@ -76,21 +77,21 @@ class App extends Component {
   
   }
 
-  changeCard(text, color, heading) {
+  changeCard(text, color) {
     let cards2 = [...this.state.cards];
     let count = this.state.changedCardOnBoard
     let card = { ...cards2[count] };
     card.text = text;
     card.color = color;
-    card.heading = heading;
     cards2[count] = card;
     this.setState({ cards: cards2 }
       , this.saveCards
     )
   }
 
-  setChange(value){
-    this.setState({changedCardOnBoard: value})
+  setChange(value,text, color){
+    console.log(value, text, color)
+    this.setState({changedCardOnBoard: value, changedCardText:text, changedCardColor:color})
   }
 
   deleteCard(key) {
@@ -134,6 +135,12 @@ class App extends Component {
     this.setState({
       cards: newArray
     })
+
+  }
+
+  getChangedCard(id){
+    const elementsIndex = this.state.cards.findIndex(element => element.id === id)
+    return elementsIndex
 
   }
 
@@ -198,7 +205,8 @@ class App extends Component {
           <GridLayout className="layout" layout={layout} cols={12} rowHeight={window.innerHeight / 18} width={wWidth * 0.99 - wWidth % 2} margin={[0, 0]}>
             <div key="a" className={"theme-" + theme} > {/* Neue Überschrift/Karte Block */}
               <AddCard theme={theme} createCard={this.createCard} setModal={this.setModal} modalOpen={this.state.modalOpen}
-                changeCard={this.changeCard} changedCardOnBoard={this.state.changedCardOnBoard} setChange={this.setChange} />
+                changeCard={this.changeCard} changedCardOnBoard={this.state.changedCardOnBoard} setChange={this.setChange}  changedCardText={this.state.changedCardText}
+                changedCardColor={this.state.changedCardColor}/>
             </div>
             <div key="b" className={"theme-" + theme} > {/* Noch nicht platzierte Karten Block */}
               <CardList theme={theme} cardList={this.state.cards} setCardOnBoard={this.setCardOnBoard} setLocation={this.setLocation}

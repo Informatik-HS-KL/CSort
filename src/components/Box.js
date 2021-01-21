@@ -22,7 +22,7 @@ export function Box(props) {
 const doClickAction = () => {
   clearTimeout(timer); {
     console.log(' click');
-    props.setChange(props.id);
+    props.setChange(props.id, props.text, props.color);
     props.setModal(true);
   }
 }
@@ -64,7 +64,7 @@ const handleDoubleClick = () => {
   //Weite abhängig von onBoard
   let newWidth = ""
   props.onBoard ? newWidth = "10%" : newWidth = "38%"
-  props.heading && (newWidth ="17%")
+  if(props.heading && props.onBoard) newWidth ="17%"
   let newPosition = ""
   props.onBoard ? newPosition = "absolute" : newPosition = "relative"
 
