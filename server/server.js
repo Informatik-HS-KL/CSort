@@ -13,7 +13,7 @@ const fs = require('fs')
 const { fstat } = require('fs');
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-  cb(null, 'server/' + req.body.username + '/');
+  cb(null, './' + req.body.username + '/');
 },
 filename: function (req, file, cb) {
   cb(null, req.body.filetype + path.extname(file.originalname))
@@ -22,7 +22,7 @@ filename: function (req, file, cb) {
 
 var boardstorage = multer.diskStorage({
   destination: function (req, file, cb) {
-  cb(null, 'server/' + req.body.username + '/');
+  cb(null, './' + req.body.username + '/');
 },
 filename: function (req, file, cb) {
   cb(null, req.body.filetype + '.json')
@@ -43,6 +43,11 @@ app.post('/upload_background',function(req, res) {
          }
     return res.status(200).send(req.file);
   })
+});
+
+// test
+app.get('/test', function(req, res){
+  res.send('OK');
 });
 
 // Karten aus dem public-folder
@@ -77,8 +82,8 @@ app.post('/upload_cards',function(req, res) {
   })
 });
 
-app.listen(8000, function() {
+app.listen(81, function() {
 
-  console.log('App running on port 8000');
+  console.log('App running on port 81');
 
 });

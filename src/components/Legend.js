@@ -45,7 +45,7 @@ saveLegend(){
         data.append('username', 'test');
         data.append('filetype', 'legend');
         data.append('file', blob);
-        axios.post("http://localhost:8000/upload_cards", data, { // receive two parameter endpoint url ,form data 
+        axios.post("http://localhost:3011/upload_cards", data, { // receive two parameter endpoint url ,form data 
       }).then(function(response){
         console.log(response);
       }).catch(function(error){
@@ -61,7 +61,7 @@ saveLegend(){
         data.append('username', 'test');
         data.append('filetype', 'legend');
     
-        const res = await axios.get("http://localhost:8000/download_legend", data,{headers:{'Accept':'text/plain'},'responseType':'text'
+        const res = await axios.get("http://localhost:3011/download_legend", data,{headers:{'Accept':'text/plain'},'responseType':'text'
         });
     
         console.log(res.data[0].text);
