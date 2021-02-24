@@ -61,7 +61,7 @@ saveLegend(){
         data.append('username', 'test');
         data.append('filetype', 'legend');
     
-        const res = await axios.get(`${process.env.REACT_APP_SERVER_HOST}/download_legend`, data,{headers:{'Accept':'text/plain'},'responseType':'text'
+        const res = await axios.post(`${process.env.REACT_APP_SERVER_HOST}/download_legend`, data,{headers:{'Accept':'text/plain'},'responseType':'text'
         });
     
         this.setState({legendList:res.data})

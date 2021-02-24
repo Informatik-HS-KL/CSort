@@ -6,6 +6,8 @@ var app = express();
 var multer = require('multer');
 var cors = require('cors');
 
+const dataDir='data';
+
 app.use(cors());
 app.use(express.static('public'));
 var path = require('path');
@@ -13,7 +15,7 @@ const fs = require('fs')
 const { fstat } = require('fs');
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-  cb(null, './' + req.body.username + '/');
+  cb(null, `./${dataDir}/${req.body.username}/`);
 },
 filename: function (req, file, cb) {
   cb(null, req.body.filetype + path.extname(file.originalname))
@@ -22,7 +24,7 @@ filename: function (req, file, cb) {
 
 var boardstorage = multer.diskStorage({
   destination: function (req, file, cb) {
-  cb(null, './' + req.body.username + '/');
+  cb(null, `./${dataDir}/${req.body.username}/`);
 },
 filename: function (req, file, cb) {
   cb(null, req.body.filetype + '.json')
@@ -32,7 +34,6 @@ filename: function (req, file, cb) {
 var upload = multer({ storage: storage }).single('file');
 var boardupload = multer({ storage: boardstorage }).single('file');
 
-const dataDir='test';
 
 // Hintergrundbild hochladen
 app.post('/upload_background',function(req, res) {
@@ -52,18 +53,21 @@ app.get('/test', function(req, res){
 });
 
 // Karten aus dem public-folder
-app.get('/download_cards', function(req, res){
-  const file = path.resolve(__dirname + `/../server/${dataDir}/cards.json`);
+app.post('/download_cards', function(req, res){
+  let username = req.body.username;
+  const file = path.resolve(__dirname + `/../server/${dataDir}/${username}/cards.json`);
   res.sendFile(file);
 });
 
-app.get('/download_background', function(req, res){
-  const file = path.resolve(__dirname + `/../server/${dataDir}/background.png`);
+app.post('/download_background', function(req, res){
+  let username = req.body.username;
+  const file = path.resolve(__dirname + `/../server/${dataDir}/${username}/background.png`);
   res.sendFile(file);
 });
 
-app.get('/download_legend', function(req, res){
-  const file = path.resolve(__dirname + `/../server/${dataDir}/legend.json`);
+app.post('/download_legend', function(req, res){
+  let username = req.body.username;
+  const file = path.resolve(__dirname + `/../server/${dataDir}/${username}/legend.json`);
   res.sendFile(file);
 });
 

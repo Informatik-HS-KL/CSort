@@ -7,6 +7,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    restart: always
+    volumes:
+      - ./data/:/server/data
     ports:
       - '3010:80'
       - '3011:81'

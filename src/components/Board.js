@@ -92,7 +92,7 @@ function Board(props) {
     data.append('username', 'test');
     data.append('filetype', 'cards');
 
-    const res = await axios.get(`${process.env.REACT_APP_SERVER_HOST}/download_cards`, data, {
+    const res = await axios.post(`${process.env.REACT_APP_SERVER_HOST}/download_cards`, data, {
       headers: { 'Accept': 'text/plain' }, 'responseType': 'text'
     });
     //Karten liegen als res.data in einem json vor
