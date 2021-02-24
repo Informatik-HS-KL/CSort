@@ -8,6 +8,7 @@ COPY package-lock.json ./
 COPY start.sh ./
 COPY server/server.js ./server/server.js
 COPY server/package.json ./server/package.json
+COPY server/data ./server/test
 RUN pwd
 RUN ls
 RUN npm ci
@@ -21,6 +22,7 @@ COPY --from=build /csort/build /usr/share/nginx/html
 COPY --from=build /csort/start.sh ./
 COPY --from=build /csort/server/server.js ./server/server.js
 COPY --from=build /csort/server/package.json ./server/package.json
+COPY --from=build /csort/server/data ./server/test
 RUN apk update
 RUN apk add screen
 RUN apk add npm

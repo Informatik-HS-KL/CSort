@@ -32,6 +32,7 @@ filename: function (req, file, cb) {
 var upload = multer({ storage: storage }).single('file');
 var boardupload = multer({ storage: boardstorage }).single('file');
 
+const dataDir='test';
 
 // Hintergrundbild hochladen
 app.post('/upload_background',function(req, res) {
@@ -52,27 +53,27 @@ app.get('/test', function(req, res){
 
 // Karten aus dem public-folder
 app.get('/download_cards', function(req, res){
-  const file = path.resolve(__dirname + '/../server/' + 'test' + '/' + 'cards.json');
+  const file = path.resolve(__dirname + `/../server/${dataDir}/cards.json`);
   res.sendFile(file);
 });
 
 app.get('/download_background', function(req, res){
-  const file = path.resolve(__dirname + '/../server/' + 'test' + '/' + 'background.png');
+  const file = path.resolve(__dirname + `/../server/${dataDir}/background.png`);
   res.sendFile(file);
 });
 
 app.get('/download_legend', function(req, res){
-  const file = path.resolve(__dirname + '/../server/' + 'test' + '/' + 'legend.json');
+  const file = path.resolve(__dirname + `/../server/${dataDir}/legend.json`);
   res.sendFile(file);
 });
 
 // Karten hochladen
 app.post('/upload_cards',function(req, res) {
-  console.log("hi");
   boardupload(req, res, function (err) {
          if (err instanceof multer.MulterError) {
              return res.status(500).json(err);
          } else if (err) {
+            console.error(err);
              return res.status(500).json(err);
          }
          console.log(req.data)

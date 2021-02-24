@@ -65,7 +65,7 @@ function Board(props) {
       data.append('username', 'test');
       data.append('filetype', 'background');
       data.append('file', event.target.files[0]);
-      axios.post("http://localhost:3011/upload_background", data, { // receive two parameter endpoint url ,form data 
+      axios.post(`${process.env.REACT_APP_SERVER_HOST}/upload_background`, data, { // receive two parameter endpoint url ,form data 
       })
         .then(res => { // then print response status
           console.log(res.statusText)
@@ -92,7 +92,7 @@ function Board(props) {
     data.append('username', 'test');
     data.append('filetype', 'cards');
 
-    const res = await axios.get("http://localhost:3011/download_cards", data, {
+    const res = await axios.get(`${process.env.REACT_APP_SERVER_HOST}/download_cards`, data, {
       headers: { 'Accept': 'text/plain' }, 'responseType': 'text'
     });
     //Karten liegen als res.data in einem json vor
@@ -123,7 +123,7 @@ function Board(props) {
         topOffset = el.getBoundingClientRect().top;
         leftOffset = el.getBoundingClientRect().left;
       }}
-      style={{ background: `url(http://localhost:3011/download_background)`, width: '100%', height: '100%', backgroundSize: 'contain', backgroundRepeat: 'no-repeat' }}>
+      style={{ background: `url(${process.env.REACT_APP_SERVER_HOST}/download_background)`, width: '100%', height: '100%', backgroundSize: 'contain', backgroundRepeat: 'no-repeat' }}>
       <label for="ImageUpload" className={"ImageInput button-" + props.theme}></label>
       <input id="ImageUpload" type="file" name="myImage" onChange={onImageChange} />
       {listCards}{/* Karten/Uberschriften */}

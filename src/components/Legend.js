@@ -45,7 +45,7 @@ saveLegend(){
         data.append('username', 'test');
         data.append('filetype', 'legend');
         data.append('file', blob);
-        axios.post("http://localhost:3011/upload_cards", data, { // receive two parameter endpoint url ,form data 
+        axios.post(`${process.env.REACT_APP_SERVER_HOST}/upload_cards`, data, { // receive two parameter endpoint url ,form data 
       }).then(function(response){
         console.log(response);
       }).catch(function(error){
@@ -61,11 +61,9 @@ saveLegend(){
         data.append('username', 'test');
         data.append('filetype', 'legend');
     
-        const res = await axios.get("http://localhost:3011/download_legend", data,{headers:{'Accept':'text/plain'},'responseType':'text'
+        const res = await axios.get(`${process.env.REACT_APP_SERVER_HOST}/download_legend`, data,{headers:{'Accept':'text/plain'},'responseType':'text'
         });
     
-        console.log(res.data[0].text);
-        console.log("hallöle");
         this.setState({legendList:res.data})
     }
 
